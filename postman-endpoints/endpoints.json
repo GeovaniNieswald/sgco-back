@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "2b8ca903-e122-40b1-8b33-e6c693090e6a",
+		"name": "SGCO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Agendamento",
+			"item": [
+				{
+					"name": "Procedimentos",
+					"item": [
+						{
+							"name": "Buscar por cod",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/procedimentos/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"procedimentos",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
