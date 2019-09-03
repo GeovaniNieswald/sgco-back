@@ -1,45 +1,39 @@
-package com.dgw.sgco.domain.agendamento;
+package com.dgw.sgco.domain.pessoa;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
- * Procedimento
+ * Cidade
  */
 @Entity
-public class Procedimento implements Serializable {
+public class Cidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    private String nome;
-    private BigDecimal valor;
-    private boolean ativo;
 
-    public Procedimento() {
+    private String nome;
+
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private Estado estado;
+
+    public Cidade() {
     }
 
-    /**
-     * 
-     * @param id    - Integer
-     * @param nome  - String
-     * @param valor - BigDecimal
-     * @param ativo - boolean
-     */
-    public Procedimento(Integer id, String nome, BigDecimal valor, boolean ativo) {
-        super();
+    public Cidade(Integer id, String nome, Estado estado) {
         this.id = id;
         this.nome = nome;
-        this.valor = valor;
-        this.ativo = ativo;
+        this.estado = estado;
     }
 
     public Integer getId() {
@@ -58,20 +52,12 @@ public class Procedimento implements Serializable {
         this.nome = nome;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override
@@ -90,7 +76,7 @@ public class Procedimento implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Procedimento other = (Procedimento) obj;
+        Cidade other = (Cidade) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -98,4 +84,5 @@ public class Procedimento implements Serializable {
             return false;
         return true;
     }
+
 }

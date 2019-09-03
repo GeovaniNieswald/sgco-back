@@ -2,6 +2,7 @@ package com.dgw.sgco.domain.agendamento;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.dgw.sgco.domain.enums.StatusAgendamento;
@@ -25,32 +26,48 @@ public class Agendamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
     private String anamnese;
     private String diagnostico;
+    private String observacao;
+
     @Column(name = "receiturario", columnDefinition = "varchar") // Alterar para JSON quando utilizar no mysql
     @Convert(converter = JsonToMapConverter.class)
-    private Map<String, Object> receiturario;
+    private Map<String, Object> receiturario = new HashMap<>();
+
     @Column(name = "atestado", columnDefinition = "varchar") // Alterar para JSON quando utilizar no mysql
     @Convert(converter = JsonToMapConverter.class)
-    private Map<String, Object> atestado;
+    private Map<String, Object> atestado = new HashMap<>();
+
     @Column(name = "data_hora_inicio")
     private Date dataHoraInicio;
+
     @Column(name = "data_hora_fim")
     private Date dataHoraFim;
-    private String observacao;
+
     @Column(name = "cod_status")
     private Integer status;
 
     public Agendamento() {
-
     }
 
-    public Agendamento(Integer id, String anamnese, String diagnostico, Map<String, Object> receiturario, Map<String, Object> atestado, Date dataHoraInicio, Date dataHoraFim, String observacao, StatusAgendamento status) {
+    /**
+     * Agendamento
+     * 
+     * @param id             - Integer
+     * @param anamnese       - String
+     * @param diagnostico    - String
+     * @param dataHoraInicio - Date
+     * @param dataHoraFim    - Date
+     * @param observacao     - String
+     * @param status         - StatusAgendamento
+     */
+    public Agendamento(Integer id, String anamnese, String diagnostico, Date dataHoraInicio, Date dataHoraFim,
+            String observacao, StatusAgendamento status) {
+        super();
         this.id = id;
         this.anamnese = anamnese;
         this.diagnostico = diagnostico;
-        this.receiturario = receiturario;
-        this.atestado = atestado;
         this.dataHoraInicio = dataHoraInicio;
         this.dataHoraFim = dataHoraFim;
         this.observacao = observacao;

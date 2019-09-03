@@ -1,19 +1,23 @@
 package com.dgw.sgco.domain.enums;
 
-public enum StatusAgendamento {
+/**
+ * Permissao
+ */
+public enum Permissao {
 
-    AGENDADO(0, "Agendado"), CONFIRMADO(1, "Confirmado"), CANCELADO(2, "Cancelado");
+    DESENVOLVEDOR(0, "Desenvolvedor"), ADMINISTRADOR(1, "Administrador"), SECRETARIA(2, "Secretária"),
+    DENTISTA(3, "Dentista");
 
     private Integer cod;
     private String descricao;
 
     /**
-     * ENUM - Status Agendamento
+     * ENUM Permissão
      * 
      * @param cod       - Integer
      * @param descricao - String
      */
-    private StatusAgendamento(Integer cod, String descricao) {
+    private Permissao(Integer cod, String descricao) {
         this.cod = cod;
         this.descricao = descricao;
     }
@@ -26,15 +30,16 @@ public enum StatusAgendamento {
         return this.descricao;
     }
 
-    public static StatusAgendamento toEnum(Integer cod) {
+    public static Permissao toEnum(Integer cod) {
         if (cod == null)
             return null;
 
-        for (StatusAgendamento x : StatusAgendamento.values()) {
+        for (Permissao x : Permissao.values()) {
             if (cod.equals(x.getCod()))
                 return x;
         }
 
         throw new IllegalArgumentException("Código inválido: " + cod);
     }
+
 }

@@ -20,7 +20,7 @@ public class JsonToMapConverter implements AttributeConverter<Map<String, Object
     @Override
     @SuppressWarnings("unchecked")
     public Map<String, Object> convertToEntityAttribute(String attribute) {
-        if (attribute == null) {
+        if (attribute == null || attribute.trim().isEmpty()) {
             return new HashMap<>();
         }
 
@@ -36,10 +36,10 @@ public class JsonToMapConverter implements AttributeConverter<Map<String, Object
 
     @Override
     public String convertToDatabaseColumn(Map<String, Object> dbData) {
-        if (dbData == null) {
+        if (dbData == null || dbData.isEmpty()) {
             return null;
         }
-        
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.writeValueAsString(dbData);

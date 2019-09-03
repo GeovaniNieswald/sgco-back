@@ -1,19 +1,22 @@
 package com.dgw.sgco.domain.enums;
 
-public enum StatusAgendamento {
+/**
+ * StatusMovimentacao
+ */
+public enum StatusMovimentacao {
 
-    AGENDADO(0, "Agendado"), CONFIRMADO(1, "Confirmado"), CANCELADO(2, "Cancelado");
+    CRIADA(0, "Criada"), PAGA(1, "Paga"), CANCELADA(2, "Cancelada");
 
     private Integer cod;
     private String descricao;
 
     /**
-     * ENUM - Status Agendamento
+     * ENUM - Status Movimentação
      * 
      * @param cod       - Integer
      * @param descricao - String
      */
-    private StatusAgendamento(Integer cod, String descricao) {
+    private StatusMovimentacao(Integer cod, String descricao) {
         this.cod = cod;
         this.descricao = descricao;
     }
@@ -26,11 +29,11 @@ public enum StatusAgendamento {
         return this.descricao;
     }
 
-    public static StatusAgendamento toEnum(Integer cod) {
+    public static StatusMovimentacao toEnum(Integer cod) {
         if (cod == null)
             return null;
 
-        for (StatusAgendamento x : StatusAgendamento.values()) {
+        for (StatusMovimentacao x : StatusMovimentacao.values()) {
             if (cod.equals(x.getCod()))
                 return x;
         }

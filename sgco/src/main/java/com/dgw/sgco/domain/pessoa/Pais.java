@@ -1,18 +1,20 @@
-package com.dgw.sgco.domain.agendamento;
+package com.dgw.sgco.domain.pessoa;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
- * Procedimento
+ * Pais
  */
 @Entity
-public class Procedimento implements Serializable {
+public class Pais implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,25 +23,18 @@ public class Procedimento implements Serializable {
     private Integer id;
     
     private String nome;
-    private BigDecimal valor;
-    private boolean ativo;
+    private String sigla;
 
-    public Procedimento() {
+    @OneToMany(mappedBy = "pais")
+    private List<Estado> estados = new ArrayList<>();
+
+    public Pais() {
     }
 
-    /**
-     * 
-     * @param id    - Integer
-     * @param nome  - String
-     * @param valor - BigDecimal
-     * @param ativo - boolean
-     */
-    public Procedimento(Integer id, String nome, BigDecimal valor, boolean ativo) {
-        super();
+    public Pais(Integer id, String nome, String sigla) {
         this.id = id;
         this.nome = nome;
-        this.valor = valor;
-        this.ativo = ativo;
+        this.sigla = sigla;
     }
 
     public Integer getId() {
@@ -58,20 +53,20 @@ public class Procedimento implements Serializable {
         this.nome = nome;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public String getSigla() {
+        return sigla;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public List<Estado> getEstados() {
+        return estados;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setEstados(List<Estado> estados) {
+        this.estados = estados;
     }
 
     @Override
@@ -90,7 +85,7 @@ public class Procedimento implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Procedimento other = (Procedimento) obj;
+        Pais other = (Pais) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -98,4 +93,5 @@ public class Procedimento implements Serializable {
             return false;
         return true;
     }
+
 }

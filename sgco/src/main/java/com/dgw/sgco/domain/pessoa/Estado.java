@@ -1,18 +1,22 @@
-package com.dgw.sgco.domain.agendamento;
+package com.dgw.sgco.domain.pessoa;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
- * Procedimento
+ * Estado
  */
 @Entity
-public class Procedimento implements Serializable {
+public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,25 +25,23 @@ public class Procedimento implements Serializable {
     private Integer id;
     
     private String nome;
-    private BigDecimal valor;
-    private boolean ativo;
+    private String uf;
 
-    public Procedimento() {
+    @ManyToOne
+    @JoinColumn(name = "id_pais")
+    private Pais pais;
+
+    @OneToMany(mappedBy = "estado")
+    private List<Cidade> cidades = new ArrayList<>();
+
+    public Estado() {
     }
 
-    /**
-     * 
-     * @param id    - Integer
-     * @param nome  - String
-     * @param valor - BigDecimal
-     * @param ativo - boolean
-     */
-    public Procedimento(Integer id, String nome, BigDecimal valor, boolean ativo) {
-        super();
+    public Estado(Integer id, String nome, String uf, Pais pais) {
         this.id = id;
         this.nome = nome;
-        this.valor = valor;
-        this.ativo = ativo;
+        this.uf = uf;
+        this.pais = pais;
     }
 
     public Integer getId() {
@@ -58,20 +60,28 @@ public class Procedimento implements Serializable {
         this.nome = nome;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public String getUf() {
+        return uf;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public List<Cidade> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(List<Cidade> cidades) {
+        this.cidades = cidades;
     }
 
     @Override
@@ -90,7 +100,7 @@ public class Procedimento implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Procedimento other = (Procedimento) obj;
+        Estado other = (Estado) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -98,4 +108,5 @@ public class Procedimento implements Serializable {
             return false;
         return true;
     }
+
 }
