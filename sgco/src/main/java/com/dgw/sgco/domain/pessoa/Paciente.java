@@ -2,20 +2,23 @@ package com.dgw.sgco.domain.pessoa;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.dgw.sgco.domain.enums.TipoFuncionario;
+import com.dgw.sgco.utils.JsonToMapConverter;
 
 /**
- * Funcionario
+ * Paciente
  */
 @Entity
-public class Funcionario implements Serializable {
+public class Paciente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,47 +28,31 @@ public class Funcionario implements Serializable {
 
     private String nome;
     private String cpf;
-    private String rg;
     private String sexo;
     private Date nascimento;
-    private boolean ativo;
-    private Integer tipo;
 
-    @Column(name = "cor_agenda")
-    private String corAgenda;
+    @Column(name = "odontograma", columnDefinition = "varchar") // Alterar para JSON quando utilizar no mysql
+    @Convert(converter = JsonToMapConverter.class)
+    private Map<String, Object> odontograma = new HashMap<>();
 
-    @Column(name = "crm_cro")
-    private String crmCro;
-
-    public Funcionario() {
+    public Paciente() {
     }
 
     /**
-     * Funcionário
+     * Paciente
      * 
      * @param id         - Integer
      * @param nome       - String
      * @param cpf        - String
-     * @param rg         - String
      * @param sexo       - String
      * @param nascimento - Date
-     * @param ativo      - boolean
-     * @param tipo       - Integer
-     * @param corAgenda  - String
-     * @param crmCro     - String
      */
-    public Funcionario(Integer id, String nome, String cpf, String rg, String sexo, Date nascimento, boolean ativo,
-            Integer tipo, String corAgenda, String crmCro) {
+    public Paciente(Integer id, String nome, String cpf, String sexo, Date nascimento) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
-        this.rg = rg;
         this.sexo = sexo;
         this.nascimento = nascimento;
-        this.ativo = ativo;
-        this.tipo = tipo;
-        this.corAgenda = corAgenda;
-        this.crmCro = crmCro;
     }
 
     public Integer getId() {
@@ -92,14 +79,6 @@ public class Funcionario implements Serializable {
         this.cpf = cpf;
     }
 
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
     public String getSexo() {
         return sexo;
     }
@@ -116,36 +95,12 @@ public class Funcionario implements Serializable {
         this.nascimento = nascimento;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public Map<String, Object> getOdontograma() {
+        return odontograma;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public TipoFuncionario getTipo() {
-        return TipoFuncionario.toEnum(this.tipo);
-    }
-
-    public void setTipo(TipoFuncionario tipo) {
-        this.tipo = tipo.getCod();
-    }
-
-    public String getCorAgenda() {
-        return corAgenda;
-    }
-
-    public void setCorAgenda(String corAgenda) {
-        this.corAgenda = corAgenda;
-    }
-
-    public String getCrmCro() {
-        return crmCro;
-    }
-
-    public void setCrmCro(String crmCro) {
-        this.crmCro = crmCro;
+    public void setOdontograma(Map<String, Object> odontograma) {
+        this.odontograma = odontograma;
     }
 
     @Override
@@ -164,7 +119,7 @@ public class Funcionario implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Funcionario other = (Funcionario) obj;
+        Paciente other = (Paciente) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
