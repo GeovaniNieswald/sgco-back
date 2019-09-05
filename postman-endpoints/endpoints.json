@@ -12,7 +12,7 @@
 					"name": "Procedimentos",
 					"item": [
 						{
-							"name": "Buscar por cod",
+							"name": "Buscar por id",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -21,14 +21,406 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:8080/procedimentos/3",
+									"raw": "localhost:8080/procedimentos/1",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"procedimentos",
-										"3"
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Agendamentos",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/agendamentos/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"agendamentos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "Usuários",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Financeiro",
+			"item": [
+				{
+					"name": "Contas",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/contas/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"contas",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Movimentações",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/movimentacoes/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"movimentacoes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Parcelas",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/parcelas/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"parcelas",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "Anotações",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/anotacoes/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"anotacoes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Cidades",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/cidades/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cidades",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Contatos",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/contatos/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"contatos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Endereços",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/enderecos/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"enderecos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Estados",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/estados/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"estados",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Funcionários",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/funcionarios/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"funcionarios",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Pacientes",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/pacientes/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"pacientes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Paises",
+					"item": [
+						{
+							"name": "Buscar por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/paises/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"paises",
+										"1"
 									]
 								}
 							},

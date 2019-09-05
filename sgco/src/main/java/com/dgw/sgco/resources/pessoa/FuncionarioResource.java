@@ -1,7 +1,7 @@
-package com.dgw.sgco.resources.agendamento;
+package com.dgw.sgco.resources.pessoa;
 
-import com.dgw.sgco.domain.agendamento.Procedimento;
-import com.dgw.sgco.services.agendamento.ProcedimentoService;
+import com.dgw.sgco.domain.pessoa.Funcionario;
+import com.dgw.sgco.services.pessoa.FuncionarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,25 +11,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * ProcedimentoResource
+ * FuncionarioResource
  */
 @RestController
-@RequestMapping(value = "/procedimentos")
-public class ProcedimentoResource {
+@RequestMapping(value = "/funcionarios")
+public class FuncionarioResource {
 
     @Autowired
-    private ProcedimentoService service;
+    private FuncionarioService service;
 
     /**
-     * Buscar Procedimento por id
+     * Buscar Funcionário por id
      * 
      * @param id - Integer
-     * @return Procedimento
+     * @return Funcionario
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Integer id) {
-        Procedimento obj = service.find(id);
+        Funcionario obj = service.find(id);
 
         return ResponseEntity.ok().body(obj);
     }
+
 }

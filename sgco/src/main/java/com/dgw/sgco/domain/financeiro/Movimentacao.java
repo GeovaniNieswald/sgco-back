@@ -39,14 +39,14 @@ public class Movimentacao implements Serializable {
      * 
      * @param id        - Integer
      * @param descricao - String
-     * @param tipo      - Integer
-     * @param status    - Integer
+     * @param tipo      - TipoMovimentacao
+     * @param status    - StatusMovimentacao
      */
-    public Movimentacao(Integer id, String descricao, Integer tipo, Integer status) {
+    public Movimentacao(Integer id, String descricao, TipoMovimentacao tipo, StatusMovimentacao status) {
         this.id = id;
         this.descricao = descricao;
-        this.tipo = tipo;
-        this.status = status;
+        this.tipo = (tipo == null) ? null : tipo.getCod();
+        this.status = (status == null) ? null : status.getCod();
     }
 
     public Integer getId() {

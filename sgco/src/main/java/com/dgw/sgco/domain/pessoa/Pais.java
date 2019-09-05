@@ -21,7 +21,7 @@ public class Pais implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     private String nome;
     private String sigla;
 
@@ -31,6 +31,13 @@ public class Pais implements Serializable {
     public Pais() {
     }
 
+    /**
+     * Pais
+     * 
+     * @param id    - Integer
+     * @param nome  - String
+     * @param sigla - String
+     */
     public Pais(Integer id, String nome, String sigla) {
         this.id = id;
         this.nome = nome;

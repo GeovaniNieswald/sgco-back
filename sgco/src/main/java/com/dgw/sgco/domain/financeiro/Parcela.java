@@ -41,14 +41,14 @@ public class Parcela implements Serializable {
      * @param vencimento - Date
      * @param data       - Date
      * @param valor      - BigDecimal
-     * @param status     - Integer
+     * @param status     - StatusParcela
      */
-    public Parcela(Integer id, Date vencimento, Date data, BigDecimal valor, Integer status) {
+    public Parcela(Integer id, Date vencimento, Date data, BigDecimal valor, StatusParcela status) {
         this.id = id;
         this.vencimento = vencimento;
         this.data = data;
         this.valor = valor;
-        this.status = status;
+        this.status = (status == null) ? null : status.getCod();
     }
 
     public Integer getId() {

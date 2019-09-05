@@ -19,7 +19,7 @@ public class Procedimento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     private String nome;
     private BigDecimal valor;
     private boolean ativo;
@@ -28,6 +28,7 @@ public class Procedimento implements Serializable {
     }
 
     /**
+     * Procedimento
      * 
      * @param id    - Integer
      * @param nome  - String

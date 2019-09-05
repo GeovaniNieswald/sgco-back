@@ -1,7 +1,7 @@
 package com.dgw.sgco.resources.agendamento;
 
 import com.dgw.sgco.domain.agendamento.Agendamento;
-import com.dgw.sgco.services.agendamentos.AgendamentoService;
+import com.dgw.sgco.services.agendamento.AgendamentoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +21,10 @@ public class AgendamentoResource {
     private AgendamentoService service;
 
     /**
-     * Buscar Procedimento por id
+     * Buscar Agendamento por id
      * 
      * @param id - Integer
-     * @return Procedimento
+     * @return Agendamento
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Integer id) {

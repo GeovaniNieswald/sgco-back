@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Endereco
@@ -25,6 +27,10 @@ public class Endereco implements Serializable {
     private String cep;
     private String complemento;
 
+    @ManyToOne
+    @JoinColumn(name = "id_cidade")
+    private Cidade cidade;
+
     public Endereco() {
     }
 
@@ -37,14 +43,17 @@ public class Endereco implements Serializable {
      * @param numero      - String
      * @param cep         - String
      * @param complemento - String
+     * @param cidade      - Cidade
      */
-    public Endereco(Integer id, String logradouro, String bairro, String numero, String cep, String complemento) {
+    public Endereco(Integer id, String logradouro, String bairro, String numero, String cep, String complemento,
+            Cidade cidade) {
         this.id = id;
         this.logradouro = logradouro;
         this.bairro = bairro;
         this.numero = numero;
         this.cep = cep;
         this.complemento = complemento;
+        this.cidade = cidade;
     }
 
     public Integer getId() {
@@ -93,6 +102,14 @@ public class Endereco implements Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
     @Override

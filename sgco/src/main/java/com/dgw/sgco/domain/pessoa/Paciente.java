@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import com.dgw.sgco.utils.JsonToMapConverter;
 
@@ -35,6 +37,14 @@ public class Paciente implements Serializable {
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> odontograma = new HashMap<>();
 
+    @OneToOne
+    @JoinColumn(name = "id_contato")
+    private Contato contato;
+
+    @OneToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
+
     public Paciente() {
     }
 
@@ -46,13 +56,18 @@ public class Paciente implements Serializable {
      * @param cpf        - String
      * @param sexo       - String
      * @param nascimento - Date
+     * @param contato    - Contato
+     * @param endereco   - Endereco
      */
-    public Paciente(Integer id, String nome, String cpf, String sexo, Date nascimento) {
+    public Paciente(Integer id, String nome, String cpf, String sexo, Date nascimento, Contato contato,
+            Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.sexo = sexo;
         this.nascimento = nascimento;
+        this.contato = contato;
+        this.endereco = endereco;
     }
 
     public Integer getId() {
@@ -101,6 +116,22 @@ public class Paciente implements Serializable {
 
     public void setOdontograma(Map<String, Object> odontograma) {
         this.odontograma = odontograma;
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override

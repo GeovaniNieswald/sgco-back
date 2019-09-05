@@ -36,13 +36,13 @@ public class Conta implements Serializable {
      * 
      * @param id    - Integer
      * @param nome  - String
-     * @param tipo  - Integer
+     * @param tipo  - TipoConta
      * @param ativa - boolean
      */
-    public Conta(Integer id, String nome, Integer tipo, boolean ativa) {
+    public Conta(Integer id, String nome, TipoConta tipo, boolean ativa) {
         this.id = id;
         this.nome = nome;
-        this.tipo = tipo;
+        this.tipo = (tipo == null) ? null : tipo.getCod();
         this.ativa = ativa;
     }
 

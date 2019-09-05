@@ -30,6 +30,13 @@ public class Cidade implements Serializable {
     public Cidade() {
     }
 
+    /**
+     * Cidade
+     * 
+     * @param id     - Integer
+     * @param nome   - String
+     * @param estado - String
+     */
     public Cidade(Integer id, String nome, Estado estado) {
         this.id = id;
         this.nome = nome;

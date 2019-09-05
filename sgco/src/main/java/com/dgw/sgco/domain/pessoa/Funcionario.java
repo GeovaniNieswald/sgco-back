@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import com.dgw.sgco.domain.enums.TipoFuncionario;
 
@@ -29,6 +31,8 @@ public class Funcionario implements Serializable {
     private String sexo;
     private Date nascimento;
     private boolean ativo;
+
+    @Column(name = "cod_tipo")
     private Integer tipo;
 
     @Column(name = "cor_agenda")
@@ -36,6 +40,14 @@ public class Funcionario implements Serializable {
 
     @Column(name = "crm_cro")
     private String crmCro;
+
+    @OneToOne
+    @JoinColumn(name = "id_contato")
+    private Contato contato;
+
+    @OneToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
 
     public Funcionario() {
     }
@@ -50,12 +62,14 @@ public class Funcionario implements Serializable {
      * @param sexo       - String
      * @param nascimento - Date
      * @param ativo      - boolean
-     * @param tipo       - Integer
+     * @param tipo       - TipoFuncionario
      * @param corAgenda  - String
      * @param crmCro     - String
+     * @param contato    - Contato
+     * @param endereco   - Endereco
      */
     public Funcionario(Integer id, String nome, String cpf, String rg, String sexo, Date nascimento, boolean ativo,
-            Integer tipo, String corAgenda, String crmCro) {
+            TipoFuncionario tipo, String corAgenda, String crmCro, Contato contato, Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -63,9 +77,11 @@ public class Funcionario implements Serializable {
         this.sexo = sexo;
         this.nascimento = nascimento;
         this.ativo = ativo;
-        this.tipo = tipo;
+        this.tipo = (tipo == null) ? null : tipo.getCod();
         this.corAgenda = corAgenda;
         this.crmCro = crmCro;
+        this.contato = contato;
+        this.endereco = endereco;
     }
 
     public Integer getId() {
@@ -146,6 +162,22 @@ public class Funcionario implements Serializable {
 
     public void setCrmCro(String crmCro) {
         this.crmCro = crmCro;
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override

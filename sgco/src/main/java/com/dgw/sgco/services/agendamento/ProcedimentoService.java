@@ -1,4 +1,4 @@
-package com.dgw.sgco.services.agendamentos;
+package com.dgw.sgco.services.agendamento;
 
 import java.util.Optional;
 

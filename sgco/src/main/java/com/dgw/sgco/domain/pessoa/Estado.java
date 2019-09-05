@@ -23,7 +23,7 @@ public class Estado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     private String nome;
     private String uf;
 
@@ -37,6 +37,14 @@ public class Estado implements Serializable {
     public Estado() {
     }
 
+    /**
+     * Estado
+     * 
+     * @param id   - Integer
+     * @param nome - String
+     * @param uf   - String
+     * @param pais - String
+     */
     public Estado(Integer id, String nome, String uf, Pais pais) {
         this.id = id;
         this.nome = nome;
