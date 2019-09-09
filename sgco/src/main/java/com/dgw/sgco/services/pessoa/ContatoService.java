@@ -26,8 +26,7 @@ public class ContatoService {
      */
     public Contato find(Integer id) {
         Optional<Contato> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Contato.class.getName()));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Contato.class.getName()));
     }
 
 }

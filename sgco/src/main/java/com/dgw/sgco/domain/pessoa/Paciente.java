@@ -1,8 +1,10 @@
 package com.dgw.sgco.domain.pessoa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -12,9 +14,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.dgw.sgco.domain.agendamento.Agendamento;
 import com.dgw.sgco.utils.JsonToMapConverter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Paciente
@@ -31,6 +37,8 @@ public class Paciente implements Serializable {
     private String nome;
     private String cpf;
     private String sexo;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date nascimento;
 
     @Column(name = "odontograma", columnDefinition = "varchar") // Alterar para JSON quando utilizar no mysql
@@ -44,6 +52,13 @@ public class Paciente implements Serializable {
     @OneToOne
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "paciente")
+    private List<Anotacao> anotacoes = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "paciente")
+    private List<Agendamento> agendamentos = new ArrayList<>();
 
     public Paciente() {
     }
@@ -59,8 +74,8 @@ public class Paciente implements Serializable {
      * @param contato    - Contato
      * @param endereco   - Endereco
      */
-    public Paciente(Integer id, String nome, String cpf, String sexo, Date nascimento, Contato contato,
-            Endereco endereco) {
+    public Paciente(Integer id, String nome, String cpf, String sexo, Date nascimento, Contato contato, Endereco endereco) {
+        this();
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -132,6 +147,22 @@ public class Paciente implements Serializable {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public List<Anotacao> getAnotacoes() {
+        return anotacoes;
+    }
+
+    public void setAnotacoes(List<Anotacao> anotacoes) {
+        this.anotacoes = anotacoes;
+    }
+
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
     }
 
     @Override

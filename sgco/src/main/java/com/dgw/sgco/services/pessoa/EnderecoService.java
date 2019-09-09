@@ -26,8 +26,7 @@ public class EnderecoService {
      */
     public Endereco find(Integer id) {
         Optional<Endereco> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
     }
 
 }

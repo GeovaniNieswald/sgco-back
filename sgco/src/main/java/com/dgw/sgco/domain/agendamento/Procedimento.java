@@ -2,11 +2,16 @@ package com.dgw.sgco.domain.agendamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Procedimento
@@ -24,6 +29,10 @@ public class Procedimento implements Serializable {
     private BigDecimal valor;
     private boolean ativo;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.procedimento")
+    private Set<ProcedimentoAgendado> procedimentos = new HashSet<>();
+
     public Procedimento() {
     }
 
@@ -36,7 +45,7 @@ public class Procedimento implements Serializable {
      * @param ativo - boolean
      */
     public Procedimento(Integer id, String nome, BigDecimal valor, boolean ativo) {
-        super();
+        this();
         this.id = id;
         this.nome = nome;
         this.valor = valor;
@@ -75,6 +84,14 @@ public class Procedimento implements Serializable {
         this.ativo = ativo;
     }
 
+    public Set<ProcedimentoAgendado> getProcedimentos() {
+        return procedimentos;
+    }
+
+    public void setProcedimentos(Set<ProcedimentoAgendado> procedimentos) {
+        this.procedimentos = procedimentos;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -99,4 +116,5 @@ public class Procedimento implements Serializable {
             return false;
         return true;
     }
+
 }

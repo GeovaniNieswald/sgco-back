@@ -26,7 +26,6 @@ public class ParcelaService {
      */
     public Parcela find(Integer id) {
         Optional<Parcela> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Parcela.class.getName()));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Parcela.class.getName()));
     }
 }

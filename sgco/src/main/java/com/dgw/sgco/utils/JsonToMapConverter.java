@@ -11,8 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * JsonToMapConverter - Classe para converter o JSON do banco para Map do Java e
- * vice-versa
+ * JsonToMapConverter - Classe para converter o JSON do banco para Map do Java e vice-versa
  */
 @Converter
 public class JsonToMapConverter implements AttributeConverter<Map<String, Object>, String> {

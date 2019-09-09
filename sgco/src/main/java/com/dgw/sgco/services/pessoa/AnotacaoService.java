@@ -26,8 +26,7 @@ public class AnotacaoService {
      */
     public Anotacao find(Integer id) {
         Optional<Anotacao> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Anotacao.class.getName()));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Anotacao.class.getName()));
     }
 
 }

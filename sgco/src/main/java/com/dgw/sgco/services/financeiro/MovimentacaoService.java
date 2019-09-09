@@ -26,7 +26,6 @@ public class MovimentacaoService {
      */
     public Movimentacao find(Integer id) {
         Optional<Movimentacao> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Movimentacao.class.getName()));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Movimentacao.class.getName()));
     }
 }

@@ -13,9 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 
 import com.dgw.sgco.domain.enums.Permissao;
+import com.dgw.sgco.domain.pessoa.Funcionario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Usuario
@@ -28,7 +31,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     private String login;
     private String senha;
     private boolean ativo;
@@ -39,6 +42,10 @@ public class Usuario implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "cod_permissao")
     private List<Permissao> permissoes = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "usuario")
+    private Funcionario funcionario;
 
     public Usuario() {
     }
@@ -53,6 +60,7 @@ public class Usuario implements Serializable {
      * @param imagem - String
      */
     public Usuario(Integer id, String login, String senha, boolean ativo, String imagem) {
+        this();
         this.id = id;
         this.login = login;
         this.senha = senha;
@@ -106,6 +114,14 @@ public class Usuario implements Serializable {
 
     public void setPermissoes(List<Permissao> permissoes) {
         this.permissoes = permissoes;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     @Override

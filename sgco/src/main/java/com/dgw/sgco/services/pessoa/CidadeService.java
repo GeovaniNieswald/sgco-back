@@ -26,8 +26,7 @@ public class CidadeService {
      */
     public Cidade find(Integer id) {
         Optional<Cidade> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Cidade.class.getName()));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cidade.class.getName()));
     }
 
 }

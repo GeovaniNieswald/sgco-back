@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Anotacao
@@ -21,6 +25,11 @@ public class Anotacao implements Serializable {
 
     private String conteudo;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private Paciente paciente;
+
     public Anotacao() {
     }
 
@@ -29,10 +38,13 @@ public class Anotacao implements Serializable {
      * 
      * @param id       - Integer
      * @param conteudo - String
+     * @param paciente - Paciente
      */
-    public Anotacao(Integer id, String conteudo) {
+    public Anotacao(Integer id, String conteudo, Paciente paciente) {
+        this();
         this.id = id;
         this.conteudo = conteudo;
+        this.paciente = paciente;
     }
 
     public Integer getId() {
@@ -49,6 +61,14 @@ public class Anotacao implements Serializable {
 
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @Override

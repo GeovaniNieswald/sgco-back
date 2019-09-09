@@ -1,7 +1,9 @@
 package com.dgw.sgco.domain.pessoa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.dgw.sgco.domain.agendamento.Agendamento;
+import com.dgw.sgco.domain.autenticacao.Usuario;
 import com.dgw.sgco.domain.enums.TipoFuncionario;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Funcionario
@@ -29,8 +36,10 @@ public class Funcionario implements Serializable {
     private String cpf;
     private String rg;
     private String sexo;
-    private Date nascimento;
     private boolean ativo;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date nascimento;
 
     @Column(name = "cod_tipo")
     private Integer tipo;
@@ -48,6 +57,14 @@ public class Funcionario implements Serializable {
     @OneToOne
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "funcionario")
+    private List<Agendamento> agendamentos = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     public Funcionario() {
     }
@@ -68,8 +85,8 @@ public class Funcionario implements Serializable {
      * @param contato    - Contato
      * @param endereco   - Endereco
      */
-    public Funcionario(Integer id, String nome, String cpf, String rg, String sexo, Date nascimento, boolean ativo,
-            TipoFuncionario tipo, String corAgenda, String crmCro, Contato contato, Endereco endereco) {
+    public Funcionario(Integer id, String nome, String cpf, String rg, String sexo, Date nascimento, boolean ativo, TipoFuncionario tipo, String corAgenda, String crmCro, Contato contato, Endereco endereco) {
+        this();
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -180,6 +197,22 @@ public class Funcionario implements Serializable {
         this.endereco = endereco;
     }
 
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -204,5 +237,4 @@ public class Funcionario implements Serializable {
             return false;
         return true;
     }
-
 }

@@ -9,8 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.dgw.sgco.domain.enums.StatusParcela;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Parcela
@@ -24,12 +28,21 @@ public class Parcela implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date vencimento;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date data;
+
     private BigDecimal valor;
 
     @Column(name = "cod_status")
     private Integer status;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "id_movimentacao")
+    private Movimentacao movimentacao;
 
     public Parcela() {
     }
@@ -39,16 +52,16 @@ public class Parcela implements Serializable {
      * 
      * @param id         - Integer
      * @param vencimento - Date
-     * @param data       - Date
      * @param valor      - BigDecimal
      * @param status     - StatusParcela
      */
-    public Parcela(Integer id, Date vencimento, Date data, BigDecimal valor, StatusParcela status) {
+    public Parcela(Integer id, Date vencimento, BigDecimal valor, StatusParcela status, Movimentacao movimentacao) {
+        this();
         this.id = id;
         this.vencimento = vencimento;
-        this.data = data;
         this.valor = valor;
         this.status = (status == null) ? null : status.getCod();
+        this.movimentacao = movimentacao;
     }
 
     public Integer getId() {
@@ -89,6 +102,14 @@ public class Parcela implements Serializable {
 
     public void setStatus(StatusParcela status) {
         this.status = status.getCod();
+    }
+
+    public Movimentacao getMovimentacao() {
+        return movimentacao;
+    }
+
+    public void setMovimentacao(Movimentacao movimentacao) {
+        this.movimentacao = movimentacao;
     }
 
     @Override

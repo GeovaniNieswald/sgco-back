@@ -32,13 +32,12 @@ public class Contato implements Serializable {
      * @param id        - Integer
      * @param email     - String
      * @param telefone1 - String
-     * @param telefone2 - String
      */
-    public Contato(Integer id, String email, String telefone1, String telefone2) {
+    public Contato(Integer id, String email, String telefone1) {
+        this();
         this.id = id;
         this.email = email;
         this.telefone1 = telefone1;
-        this.telefone2 = telefone2;
     }
 
     public Integer getId() {

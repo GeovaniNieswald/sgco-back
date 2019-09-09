@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.dgw.sgco.domain.agendamento.Agendamento;
 import com.dgw.sgco.repositories.agendamento.AgendamentoRepository;
+import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class AgendamentoService {
      */
     public Agendamento find(Integer id) {
         Optional<Agendamento> obj = repo.findById(id);
-        return obj.orElse(null);
+
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Agendamento.class.getName()));
     }
 }

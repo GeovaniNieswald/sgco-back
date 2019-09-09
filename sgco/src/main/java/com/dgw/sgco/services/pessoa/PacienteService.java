@@ -26,8 +26,7 @@ public class PacienteService {
      */
     public Paciente find(Integer id) {
         Optional<Paciente> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Paciente.class.getName()));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Paciente.class.getName()));
     }
 
 }

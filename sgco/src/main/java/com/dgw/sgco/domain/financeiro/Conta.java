@@ -1,14 +1,18 @@
 package com.dgw.sgco.domain.financeiro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.dgw.sgco.domain.enums.TipoConta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Conta
@@ -28,6 +32,10 @@ public class Conta implements Serializable {
     @Column(name = "cod_tipo")
     private Integer tipo;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "conta")
+    private List<Movimentacao> movimentacoes = new ArrayList<>();
+
     public Conta() {
     }
 
@@ -40,6 +48,7 @@ public class Conta implements Serializable {
      * @param ativa - boolean
      */
     public Conta(Integer id, String nome, TipoConta tipo, boolean ativa) {
+        this();
         this.id = id;
         this.nome = nome;
         this.tipo = (tipo == null) ? null : tipo.getCod();
@@ -76,6 +85,14 @@ public class Conta implements Serializable {
 
     public void setAtiva(boolean ativa) {
         this.ativa = ativa;
+    }
+
+    public List<Movimentacao> getMovimentacoes() {
+        return movimentacoes;
+    }
+
+    public void setMovimentacoes(List<Movimentacao> movimentacoes) {
+        this.movimentacoes = movimentacoes;
     }
 
     @Override

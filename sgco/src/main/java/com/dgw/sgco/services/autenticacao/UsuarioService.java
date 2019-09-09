@@ -26,7 +26,6 @@ public class UsuarioService {
      */
     public Usuario find(Integer id) {
         Optional<Usuario> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
     }
 }

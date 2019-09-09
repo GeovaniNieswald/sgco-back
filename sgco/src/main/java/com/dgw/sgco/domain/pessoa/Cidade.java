@@ -38,6 +38,7 @@ public class Cidade implements Serializable {
      * @param estado - String
      */
     public Cidade(Integer id, String nome, Estado estado) {
+        this();
         this.id = id;
         this.nome = nome;
         this.estado = estado;

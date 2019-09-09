@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Estado
  */
@@ -31,6 +33,7 @@ public class Estado implements Serializable {
     @JoinColumn(name = "id_pais")
     private Pais pais;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
 
@@ -46,6 +49,7 @@ public class Estado implements Serializable {
      * @param pais - String
      */
     public Estado(Integer id, String nome, String uf, Pais pais) {
+        this();
         this.id = id;
         this.nome = nome;
         this.uf = uf;

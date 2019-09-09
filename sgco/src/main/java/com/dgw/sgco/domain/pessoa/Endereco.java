@@ -45,8 +45,8 @@ public class Endereco implements Serializable {
      * @param complemento - String
      * @param cidade      - Cidade
      */
-    public Endereco(Integer id, String logradouro, String bairro, String numero, String cep, String complemento,
-            Cidade cidade) {
+    public Endereco(Integer id, String logradouro, String bairro, String numero, String cep, String complemento, Cidade cidade) {
+        this();
         this.id = id;
         this.logradouro = logradouro;
         this.bairro = bairro;
