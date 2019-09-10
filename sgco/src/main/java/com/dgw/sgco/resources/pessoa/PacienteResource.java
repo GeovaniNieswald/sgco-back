@@ -27,7 +27,7 @@ public class PacienteResource {
      * @return Paciente
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
+    public ResponseEntity<Paciente> find(@PathVariable Integer id) {
         Paciente obj = service.find(id);
 
         return ResponseEntity.ok().body(obj);

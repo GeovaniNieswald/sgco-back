@@ -27,7 +27,7 @@ public class ParcelaResource {
      * @return Parcela
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
+    public ResponseEntity<Parcela> find(@PathVariable Integer id) {
         Parcela obj = service.find(id);
 
         return ResponseEntity.ok().body(obj);

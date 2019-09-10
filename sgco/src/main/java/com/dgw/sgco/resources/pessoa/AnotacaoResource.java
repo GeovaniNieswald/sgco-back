@@ -27,7 +27,7 @@ public class AnotacaoResource {
      * @return Anotacao
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
+    public ResponseEntity<Anotacao> find(@PathVariable Integer id) {
         Anotacao obj = service.find(id);
 
         return ResponseEntity.ok().body(obj);

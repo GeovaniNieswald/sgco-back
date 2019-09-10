@@ -27,7 +27,7 @@ public class MovimentacaoResource {
      * @return Movimentacao
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
+    public ResponseEntity<Movimentacao> find(@PathVariable Integer id) {
         Movimentacao obj = service.find(id);
 
         return ResponseEntity.ok().body(obj);

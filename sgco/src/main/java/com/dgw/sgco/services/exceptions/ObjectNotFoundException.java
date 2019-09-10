@@ -8,6 +8,7 @@ public class ObjectNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Caso não encontre o objeto no banco
      * 
      * @param msg - String
      */
@@ -16,6 +17,7 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
+     * Caso não encontre o objeto no banco
      * 
      * @param msg   - String
      * @param cause - Throwable

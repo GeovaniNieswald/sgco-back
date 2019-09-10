@@ -27,7 +27,7 @@ public class PaisResource {
      * @return Pais
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
+    public ResponseEntity<Pais> find(@PathVariable Integer id) {
         Pais obj = service.find(id);
 
         return ResponseEntity.ok().body(obj);

@@ -27,7 +27,7 @@ public class AgendamentoResource {
      * @return Agendamento
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
+    public ResponseEntity<Agendamento> find(@PathVariable Integer id) {
         Agendamento obj = service.find(id);
 
         return ResponseEntity.ok().body(obj);

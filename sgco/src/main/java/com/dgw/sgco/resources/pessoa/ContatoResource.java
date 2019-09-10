@@ -27,7 +27,7 @@ public class ContatoResource {
      * @return Contato
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
+    public ResponseEntity<Contato> find(@PathVariable Integer id) {
         Contato obj = service.find(id);
 
         return ResponseEntity.ok().body(obj);
