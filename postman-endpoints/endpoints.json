@@ -21,6 +21,110 @@
 									"raw": ""
 								},
 								"url": {
+									"raw": "localhost:8080/procedimentos/4",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"procedimentos",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar todos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/procedimentos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"procedimentos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inserir",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"nome\" : \"Anestesia\",\n\t\"valor\": 500,\n\t\"ativo\" : true\n}"
+								},
+								"url": {
+									"raw": "localhost:8080/procedimentos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"procedimentos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"nome\" : \"Anestesia Teste Alteração\",\n\t\"valor\": 500,\n\t\"ativo\" : true\n}"
+								},
+								"url": {
+									"raw": "localhost:8080/procedimentos/4",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"procedimentos",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Apagar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
 									"raw": "localhost:8080/procedimentos/1",
 									"host": [
 										"localhost"
