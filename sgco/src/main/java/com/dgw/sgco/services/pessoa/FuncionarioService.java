@@ -1,9 +1,11 @@
 package com.dgw.sgco.services.pessoa;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.dgw.sgco.domain.pessoa.Funcionario;
 import com.dgw.sgco.repositories.pessoa.FuncionarioRepository;
+import com.dgw.sgco.resources.specifications.FuncionarioSpec;
 import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,16 @@ public class FuncionarioService {
     public Funcionario find(Integer id) {
         Optional<Funcionario> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Funcionario.class.getName()));
+    }
+
+    /**
+     * Buscar funcionários por filtro
+     * 
+     * @param funcionarioSpec - FuncionarioSpec
+     * @return List<Funcionario>
+     */
+    public List<Funcionario> findAll(FuncionarioSpec funcionarioSpec) {
+        return repo.findAll(funcionarioSpec);
     }
 
 }

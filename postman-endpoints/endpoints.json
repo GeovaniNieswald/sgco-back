@@ -471,6 +471,38 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Buscar por filtro",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/funcionarios?nome=g&ativo=true",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"funcionarios"
+									],
+									"query": [
+										{
+											"key": "nome",
+											"value": "g"
+										},
+										{
+											"key": "ativo",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true

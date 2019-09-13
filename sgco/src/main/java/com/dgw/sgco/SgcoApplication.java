@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.dgw.sgco.domain.agendamento.Agendamento;
@@ -50,9 +51,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 
 @SpringBootApplication
-public class SgcoApplication implements CommandLineRunner {
+@Configuration
+@EnableJpaRepositories
+public class SgcoApplication implements CommandLineRunner, WebMvcConfigurer {
 
 	@Autowired
 	private ProcedimentoRepository procedimentoRepository;
@@ -84,6 +93,11 @@ public class SgcoApplication implements CommandLineRunner {
 	private ParcelaRepository parcelaRepository;
 	@Autowired
 	private ProcedimentoAgendadoRepository procedimentoAgendadoRepository;
+
+	@Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new SpecificationArgumentResolver());
+    }
 
 	public static void main(String[] args) {
 		SpringApplication.run(SgcoApplication.class, args);
