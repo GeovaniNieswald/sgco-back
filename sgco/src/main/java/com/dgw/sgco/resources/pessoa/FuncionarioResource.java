@@ -1,8 +1,10 @@
 package com.dgw.sgco.resources.pessoa;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.dgw.sgco.domain.pessoa.Funcionario;
+import com.dgw.sgco.dto.pessoa.FuncionarioDTO;
 import com.dgw.sgco.resources.specifications.FuncionarioSpec;
 import com.dgw.sgco.services.pessoa.FuncionarioService;
 
@@ -43,10 +45,11 @@ public class FuncionarioResource {
      * @return ResponseEntity -> List<Funcionario>
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Funcionario>> findAll(FuncionarioSpec funcionarioSpec) {
+    public ResponseEntity<List<FuncionarioDTO>> findAll(FuncionarioSpec funcionarioSpec) {
         List<Funcionario> list = service.findAll(funcionarioSpec);
+        List<FuncionarioDTO> listDTO = list.stream().map(obj -> new FuncionarioDTO(obj)).collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(list);
+        return ResponseEntity.ok().body(listDTO);
     }
 
 }
