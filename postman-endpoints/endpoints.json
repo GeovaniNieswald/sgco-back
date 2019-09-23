@@ -70,7 +70,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"nome\" : \"Anestesia\",\n\t\"valor\": 500,\n\t\"ativo\" : true\n}"
+									"raw": "{\n\t\"nome\" : \"\",\n\t\"valor\": 500,\n\t\"ativo\" : true\n}"
 								},
 								"url": {
 									"raw": "localhost:8080/procedimentos",
@@ -401,14 +401,14 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:8080/enderecos/1",
+									"raw": "localhost:8080/enderecos/3",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"enderecos",
-										"1"
+										"3"
 									]
 								}
 							},
@@ -459,14 +459,36 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:8080/funcionarios/1",
+									"raw": "localhost:8080/funcionarios/2",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"funcionarios",
-										"1"
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar todos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/funcionarios",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"funcionarios"
 									]
 								}
 							},
@@ -482,13 +504,14 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:8080/funcionarios?nome=g&ativo=true",
+									"raw": "localhost:8080/funcionarios/page?nome=g&ativo=true",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
-										"funcionarios"
+										"funcionarios",
+										"page"
 									],
 									"query": [
 										{
@@ -499,6 +522,88 @@
 											"key": "ativo",
 											"value": "true"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inserir",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"nome\":\"Allana Lorena Eloá Carvalho\",\n\t\"cpf\":\"023.373.937-80\",\n    \"rg\":\"16.470.174-6\",\n    \"sexo\":\"F\",\n\t\"ativo\":true,\n\t\"nascimento\":\"1964-12-02\",\n\t\"tipo\": 1,\n    \"corAgenda\":\"Red\",\n\t\"crmCro\":\"23154512\",\n\t\"endereco\":{\n\t\t\"logradouro\":\"Rua C\",\n    \t\"bairro\":\"Parque Aldeia\",\n\t\t\"numero\":\"233\",\n    \t\"cep\": \"28060-534\",\n\t\t\"complemento\": \"\",\n    \t\"idCidade\": 1\n\t},\n\t\"contato\":{\n\t\t\"email\":\"allanalorenaeloacarvalho@santosferreira.adv.br\",\n\t\t\"telefone1\":\"(22) 98265-9517\"\n\t},\n\t\"usuario\":{\n\t\t\"login\":\"allanalorenaeloacarvalho@santosferreira.adv.br\",\n\t\t\"senha\":\"sadasdasdsad\",\n\t\t\"ativo\": true,\n\t    \"imagem\":\"5465465456465465\",\n\t    \"permissoes\":[\n\t    \t1,\n\t    \t2\n\t    ]\n\t}\n}"
+								},
+								"url": {
+									"raw": "localhost:8080/funcionarios",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"funcionarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"nome\":\"Allana Lorena Eloá Carvalho\",\n\t\"cpf\":\"023.373.937-80\",\n    \"rg\":\"16.470.174-6\",\n    \"sexo\":\"F\",\n\t\"ativo\":true,\n\t\"nascimento\":\"1964-12-02\",\n\t\"tipo\": 1,\n    \"corAgenda\":\"Red\",\n\t\"crmCro\":\"23154512\",\n\t\"endereco\":{\n\t\t\"id\":3,\n\t\t\"logradouro\":\"Rua C\",\n    \t\"bairro\":\"Parque Aldeia\",\n\t\t\"numero\":\"233\",\n    \t\"cep\": \"28060-534\",\n\t\t\"complemento\": \"\",\n    \t\"idCidade\": 1\n\t},\n\t\"contato\":{\n\t\t\"id\":3,\n\t\t\"email\":\"allanalorenaeloacarvalho@santosferreira.adv.br\",\n\t\t\"telefone1\":\"(22) 98265-9517\",\n\t\t\"telefone2\":\"(22) 98255-8514\"\n\t},\n\t\"usuario\":{\n\t\t\"id\": 2,\n\t\t\"login\":\"allanalorenaeloacarvalho@santosferreira.adv.br\",\n\t\t\"senha\":\"sadasdasdsad\",\n\t\t\"ativo\": true,\n\t    \"imagem\":\"5465465456465465\",\n\t    \"permissoes\":[\n\t    \t1,\n\t    \t2\n\t    ]\n\t}\n}"
+								},
+								"url": {
+									"raw": "localhost:8080/funcionarios/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"funcionarios",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remover",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/funcionarios/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"funcionarios",
+										"2"
 									]
 								}
 							},

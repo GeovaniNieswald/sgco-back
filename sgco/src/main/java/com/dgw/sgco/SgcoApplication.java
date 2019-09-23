@@ -144,9 +144,7 @@ public class SgcoApplication implements CommandLineRunner, WebMvcConfigurer {
 		pac1.getAnotacoes().addAll(Arrays.asList(an1));
 		pac1.setOdontograma(odontograma);
 
-		Funcionario f1 = new Funcionario(null, "Geovani Alex Nieswald", "036.084.580-00", "9111083532", "M", calendario.getTime(), true, TipoFuncionario.DENTISTA, "RED", "9999", cont2, end2);
-
-		f1.setUsuario(user1);
+		Funcionario f1 = new Funcionario(null, "Geovani Alex Nieswald", "036.084.580-00", "9111083532", "M", calendario.getTime(), true, TipoFuncionario.DENTISTA, "RED", "9999", cont2, end2, user1);
 
 		Agendamento a1 = new Agendamento(null, "Dor de dente", "Dente inflamado", new Date(), new Date(), "Teste", StatusAgendamento.CONFIRMADO, pac1, f1);
 

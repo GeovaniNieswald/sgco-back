@@ -13,8 +13,8 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
  * FuncionarioSpec
  */
 @And({
-        @Spec(path = "nome", spec = LikeIgnoreCase.class),
-        @Spec(path = "ativo", spec = Equal.class)
+        @Spec(path = "nome", params = "nome", spec = LikeIgnoreCase.class),
+        @Spec(path = "ativo", params = "ativo", spec = Equal.class)
 })
 public interface FuncionarioSpec extends Specification<Funcionario> {
 

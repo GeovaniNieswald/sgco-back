@@ -84,8 +84,9 @@ public class Funcionario implements Serializable {
      * @param crmCro     - String
      * @param contato    - Contato
      * @param endereco   - Endereco
+     * @param usuario    - Usuario
      */
-    public Funcionario(Integer id, String nome, String cpf, String rg, String sexo, Date nascimento, boolean ativo, TipoFuncionario tipo, String corAgenda, String crmCro, Contato contato, Endereco endereco) {
+    public Funcionario(Integer id, String nome, String cpf, String rg, String sexo, Date nascimento, boolean ativo, TipoFuncionario tipo, String corAgenda, String crmCro, Contato contato, Endereco endereco, Usuario usuario) {
         this();
         this.id = id;
         this.nome = nome;
@@ -99,6 +100,7 @@ public class Funcionario implements Serializable {
         this.crmCro = crmCro;
         this.contato = contato;
         this.endereco = endereco;
+        this.usuario = usuario;
     }
 
     public Integer getId() {

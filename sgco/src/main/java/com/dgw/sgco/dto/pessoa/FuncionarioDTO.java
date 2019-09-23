@@ -1,8 +1,14 @@
 package com.dgw.sgco.dto.pessoa;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+
+import javax.validation.constraints.NotEmpty;
 
 import com.dgw.sgco.domain.pessoa.Funcionario;
+import com.dgw.sgco.dto.autenticacao.UsuarioDTO;
+
+import org.hibernate.validator.constraints.Length;
 
 /**
  * FuncionarioDTO
@@ -10,13 +16,28 @@ import com.dgw.sgco.domain.pessoa.Funcionario;
 public class FuncionarioDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     private Integer id;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(min = 5, max = 60, message = "O tamanho deve ser entre 5 e 60 caracteres")
     private String nome;
+
     private String cpf;
-    private Integer tipo;
-    private String telefone;
+    private String rg;
+    private String sexo;
     private boolean ativo;
+    private String nascimento;
+    private Integer tipo;
+    private String corAgenda;
+    private String crmCro;
+
+    private EnderecoDTO endereco;
+
+    private ContatoDTO contato;
+
+    private UsuarioDTO usuario;
 
     public FuncionarioDTO() {
     }
@@ -29,9 +50,13 @@ public class FuncionarioDTO implements Serializable {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.cpf = obj.getCpf();
-        this.tipo = obj.getTipo().getCod();
-        this.telefone = obj.getContato().getTelefone1();
+        this.rg = obj.getRg();
+        this.sexo = obj.getSexo();
         this.ativo = obj.isAtivo();
+        this.nascimento = sdf.format(obj.getNascimento());
+        this.tipo = obj.getTipo().getCod();
+        this.corAgenda = obj.getCorAgenda();
+        this.crmCro = obj.getCrmCro();
     }
 
     public Integer getId() {
@@ -50,12 +75,28 @@ public class FuncionarioDTO implements Serializable {
         this.nome = nome;
     }
 
-    public Integer getTipo() {
-        return tipo;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public boolean isAtivo() {
@@ -66,19 +107,59 @@ public class FuncionarioDTO implements Serializable {
         this.ativo = ativo;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getNascimento() {
+        return nascimento;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
     }
 
-    public String getCpf() {
-        return cpf;
+    public Integer getTipo() {
+        return tipo;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getCorAgenda() {
+        return corAgenda;
+    }
+
+    public void setCorAgenda(String corAgenda) {
+        this.corAgenda = corAgenda;
+    }
+
+    public String getCrmCro() {
+        return crmCro;
+    }
+
+    public void setCrmCro(String crmCro) {
+        this.crmCro = crmCro;
+    }
+
+    public EnderecoDTO getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoDTO endereco) {
+        this.endereco = endereco;
+    }
+
+    public ContatoDTO getContato() {
+        return contato;
+    }
+
+    public void setContato(ContatoDTO contato) {
+        this.contato = contato;
+    }
+
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
     }
 }
