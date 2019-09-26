@@ -43,11 +43,11 @@ public class Agendamento implements Serializable {
     private String diagnostico;
     private String observacao;
 
-    @Column(name = "receiturario", columnDefinition = "varchar") // Alterar para JSON quando utilizar no mysql
+    @Column(name = "receituario", columnDefinition = "JSON") // Alterar para JSON quando utilizar no mysql
     @Convert(converter = JsonToMapConverter.class)
-    private Map<String, Object> receiturario = new HashMap<>();
+    private Map<String, Object> receituario = new HashMap<>();
 
-    @Column(name = "atestado", columnDefinition = "varchar") // Alterar para JSON quando utilizar no mysql
+    @Column(name = "atestado", columnDefinition = "JSON") // Alterar para JSON quando utilizar no mysql
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> atestado = new HashMap<>();
 
@@ -130,12 +130,12 @@ public class Agendamento implements Serializable {
         this.diagnostico = diagnostico;
     }
 
-    public Map<String, Object> getReceiturario() {
-        return receiturario;
+    public Map<String, Object> getreceituario() {
+        return receituario;
     }
 
-    public void setReceiturario(Map<String, Object> receiturario) {
-        this.receiturario = receiturario;
+    public void setreceituario(Map<String, Object> receituario) {
+        this.receituario = receituario;
     }
 
     public Map<String, Object> getAtestado() {

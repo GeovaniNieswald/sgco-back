@@ -12,7 +12,6 @@ import com.dgw.sgco.domain.pessoa.Cidade;
 import com.dgw.sgco.domain.pessoa.Contato;
 import com.dgw.sgco.domain.pessoa.Endereco;
 import com.dgw.sgco.domain.pessoa.Funcionario;
-import com.dgw.sgco.dto.autenticacao.UsuarioDTO;
 import com.dgw.sgco.dto.pessoa.FuncionarioDTO;
 import com.dgw.sgco.repositories.autenticacao.UsuarioRepository;
 import com.dgw.sgco.repositories.pessoa.ContatoRepository;
