@@ -16,9 +16,15 @@ import org.springframework.context.annotation.Profile;
 @Profile("test")
 public class TestConfig {
 
-    @Autowired
+	@Autowired
 	private DBService dbService;
 
+	/**
+	 * Método para instanciar alguns dados
+	 * 
+	 * @return true
+	 * @throws ParseException
+	 */
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
 		dbService.instantiateTestDatabase();

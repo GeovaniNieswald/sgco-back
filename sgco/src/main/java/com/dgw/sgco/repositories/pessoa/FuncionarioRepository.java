@@ -12,4 +12,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer>, JpaSpecificationExecutor<Funcionario> {
 
+    /**
+     * Método para buscar um Funcionário pelo id do seu usuário
+     * 
+     * @param idUsuario - Integer
+     * @return Funcionario
+     */
+    public Funcionario findByUsuarioId(Integer idUsuario);
+
 }

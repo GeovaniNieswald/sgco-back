@@ -33,4 +33,17 @@ public class UsuarioResource {
         return ResponseEntity.ok().body(obj);
     }
 
+    /**
+     * Excluir um Usuário pelo id
+     * 
+     * @param id - Integer
+     * @return ResponseEntity
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class Paciente implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date nascimento;
 
-    @Column(name = "odontograma", columnDefinition = "JSON") // Alterar para JSON quando utilizar no mysql
+    @Column(name = "odontograma", columnDefinition = "JSON")
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> odontograma = new HashMap<>();
 
@@ -53,7 +54,7 @@ public class Paciente implements Serializable {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "paciente")
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Anotacao> anotacoes = new ArrayList<>();
 
     @JsonIgnore

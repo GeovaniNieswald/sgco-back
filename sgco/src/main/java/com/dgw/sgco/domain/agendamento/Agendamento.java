@@ -17,6 +17,7 @@ import com.dgw.sgco.utils.JsonToMapConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -43,11 +44,11 @@ public class Agendamento implements Serializable {
     private String diagnostico;
     private String observacao;
 
-    @Column(name = "receituario", columnDefinition = "JSON") // Alterar para JSON quando utilizar no mysql
+    @Column(name = "receituario", columnDefinition = "JSON")
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> receituario = new HashMap<>();
 
-    @Column(name = "atestado", columnDefinition = "JSON") // Alterar para JSON quando utilizar no mysql
+    @Column(name = "atestado", columnDefinition = "JSON")
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> atestado = new HashMap<>();
 
@@ -74,7 +75,7 @@ public class Agendamento implements Serializable {
     @OneToMany(mappedBy = "agendamento")
     private List<Movimentacao> movimentacoes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id.agendamento")
+    @OneToMany(mappedBy = "id.agendamento", cascade = CascadeType.ALL)
     private Set<ProcedimentoAgendado> procedimentos = new HashSet<>();
 
     public Agendamento() {
