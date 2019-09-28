@@ -46,7 +46,6 @@ public class FuncionarioService {
     @Autowired
     private UsuarioRepository usuarioRepo;
 
-
     /**
      * Inserir um novo Funcionario
      * 
@@ -56,11 +55,15 @@ public class FuncionarioService {
     @Transactional
     public Funcionario insert(Funcionario obj) {
         obj.setId(null);
-        funcionarioRepo.save(obj);
 
         enderecoRepo.save(obj.getEndereco());
         contatoRepo.save(obj.getContato());
-        usuarioRepo.save(obj.getUsuario());
+
+        if (obj.getUsuario() != null) {
+            usuarioRepo.save(obj.getUsuario());
+        }
+
+        funcionarioRepo.save(obj);
 
         return obj;
     }
@@ -73,11 +76,23 @@ public class FuncionarioService {
      */
     @Transactional
     public Funcionario update(Funcionario obj) {
-        find(obj.getId());
+        Funcionario funcionarioBD = find(obj.getId());
+
+        enderecoRepo.save(obj.getEndereco());
+        contatoRepo.save(obj.getContato());
+
+        if (obj.getUsuario() != null) {
+            usuarioRepo.save(obj.getUsuario());
+        }
 
         funcionarioRepo.save(obj);
-        contatoRepo.save(obj.getContato());
-        usuarioRepo.save(obj.getUsuario());
+
+        if (obj.getUsuario() == null) {
+            Usuario usuario = funcionarioBD.getUsuario();
+            if (usuario != null) {
+                usuarioRepo.deleteById(usuario.getId());
+            }
+        }
 
         return obj;
     }

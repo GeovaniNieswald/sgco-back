@@ -39,6 +39,7 @@ public class FuncionarioResource {
      * 
      * @param obj - FuncionarioDTO
      * @return ResponseEntity com URI para o novo Funcionario inserido
+     * @throws ParseException
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody FuncionarioDTO objDTO) throws ParseException {
@@ -56,6 +57,7 @@ public class FuncionarioResource {
      * @param obj - FuncionarioDTO
      * @param id  - Integer
      * @return ResponseEntity
+     * @throws ParseException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody FuncionarioDTO objDTO, @PathVariable Integer id) throws ParseException {

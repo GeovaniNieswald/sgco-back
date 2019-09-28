@@ -33,7 +33,10 @@ public class Funcionario implements Serializable {
     private Integer id;
 
     private String nome;
+
+    @Column(unique = true)
     private String cpf;
+
     private String rg;
     private String sexo;
     private boolean ativo;

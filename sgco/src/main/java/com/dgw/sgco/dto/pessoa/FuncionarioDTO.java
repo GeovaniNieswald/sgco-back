@@ -7,12 +7,15 @@ import javax.validation.constraints.NotEmpty;
 
 import com.dgw.sgco.domain.pessoa.Funcionario;
 import com.dgw.sgco.dto.autenticacao.UsuarioDTO;
+import com.dgw.sgco.services.validation.FuncionarioOperation;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 /**
  * FuncionarioDTO
  */
+@FuncionarioOperation
 public class FuncionarioDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,7 +27,9 @@ public class FuncionarioDTO implements Serializable {
     @Length(min = 5, max = 60, message = "O tamanho deve ser entre 5 e 60 caracteres")
     private String nome;
 
+    @CPF
     private String cpf;
+    
     private String rg;
     private String sexo;
     private boolean ativo;
