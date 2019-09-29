@@ -2,10 +2,8 @@ package com.dgw.sgco.services;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,83 +85,175 @@ public class DBService {
     @Autowired
     private ProcedimentoAgendadoRepository procedimentoAgendadoRepository;
 
-    public void instantiateTestDatabase() throws ParseException {
-        Calendar calendario = new GregorianCalendar();
+    /**
+     * Método para instânciar dados no banco de dados
+     * 
+     * @throws ParseException
+     */
+    public void instantiateDatabase(boolean test) throws ParseException {
+        SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdfDataHora = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        Procedimento proc1 = new Procedimento(null, "Tratamento de Canal", new BigDecimal(1200), true);
-        Procedimento proc2 = new Procedimento(null, "Extração de Dentes", new BigDecimal(200), true);
-        Procedimento proc3 = new Procedimento(null, "Raio-X", new BigDecimal(100), false);
+        Procedimento procedimento1 = new Procedimento(null, "Tratamento de canal", new BigDecimal(1200), true);
+        Procedimento procedimento2 = new Procedimento(null, "Extração de dente", new BigDecimal(200), true);
+        Procedimento procedimento3 = new Procedimento(null, "Raio-X", new BigDecimal(100), false);
+        Procedimento procedimento4 = new Procedimento(null, "Ortodontia", new BigDecimal(1000), true);
+        Procedimento procedimento5 = new Procedimento(null, "Implante dentário", new BigDecimal(900), true);
+        Procedimento procedimento6 = new Procedimento(null, "Clareamento", new BigDecimal(500), true);
+        Procedimento procedimento7 = new Procedimento(null, "Periodontia", new BigDecimal(150), true);
+        Procedimento procedimento8 = new Procedimento(null, "Prótese dentária móvel", new BigDecimal(6500), true);
 
-        Usuario user1 = new Usuario(null, "geovaninieswald@gmail.com", "sfadssadas", true, "sadhsajkdhsajk");
-        user1.getPermissoes().addAll(Arrays.asList(Permissao.DENTISTA));
+        Pais brasil = new Pais(1, "Brasil", "BR");
 
-        Pais p1 = new Pais(1, "Brasil", "BR");
+        Estado rs = new Estado(23, "Rio Grande do Sul", "RS", brasil);
+        Estado sc = new Estado(24, "Santa Catarina", "SC", brasil);
+        Estado pr = new Estado(18, "Paraná", "PR", brasil);
 
-        Estado e1 = new Estado(null, "Rio Grande do Sul", "RS", p1);
-        Estado e2 = new Estado(null, "Santa Catarina", "SC", p1);
+        Cidade santaRosa = new Cidade(4216, "Santa Rosa", rs);
+        Cidade ubiretama = new Cidade(4216, "Ubiretama", rs);
+        Cidade brusque = new Cidade(4460, "Brusque", sc);
+        Cidade patoBranco = new Cidade(3042, "Pato Branco", pr);
 
-        Cidade c1 = new Cidade(null, "Santa Rosa", e1);
-        Cidade c2 = new Cidade(null, "Ubiretama", e1);
-        Cidade c3 = new Cidade(null, "Brusque", e2);
+        if (test) {
+            brasil.setId(null);
 
-        p1.getEstados().addAll(Arrays.asList(e1, e2));
-        e1.getCidades().addAll(Arrays.asList(c1, c2));
-        e2.getCidades().addAll(Arrays.asList(c3));
+            rs.setId(null);
+            sc.setId(null);
+            pr.setId(null);
 
-        Endereco end1 = new Endereco(null, "Rua Roberto Jesse", "Timbaúva", "200", "98781416", "Casa da esquerda", c1);
-        Endereco end2 = new Endereco(null, "Rua Roberto Jesse", "Timbaúva", "200", "98781416", "Casa da esquerda", c1);
+            santaRosa.setId(null);
+            ubiretama.setId(null);
+            brusque.setId(null);
+            patoBranco.setId(null);
+        }
 
-        Contato cont1 = new Contato(null, "geovaninieswald@gmail.com", "(55) 99624-6352");
-        Contato cont2 = new Contato(null, "geovaninieswald@gmail.com", "(55) 99624-6352");
+        brasil.getEstados().addAll(Arrays.asList(rs, sc, pr));
 
-        calendario.set(1996, 4, 30);
-        Paciente pac1 = new Paciente(null, "Geovani Alex Nieswald", "036.084.580-00", "M", calendario.getTime(), cont1, end1);
+        rs.getCidades().addAll(Arrays.asList(santaRosa, ubiretama));
+        sc.getCidades().addAll(Arrays.asList(brusque));
+        pr.getCidades().addAll(Arrays.asList(patoBranco));
 
-        Map<String, Object> odontograma = new HashMap<>();
-        odontograma.put("teste", 10);
+        Endereco rRocco = new Endereco(null, "Rua Rocco Carpenedo", "Timbaúva", "233", "98781-538", "", santaRosa);
+        Endereco rCaxias = new Endereco(null, "Rua Caxias", "Centro", "455", "98900-976", "", santaRosa);
+        Endereco rRio = new Endereco(null, "Avenida Rio Branco", "Centro", "471", "98900-970", "", santaRosa);
+        Endereco linha15 = new Endereco(null, "Linha 15 de Novembro", "Interior", "160", "98898-000", "", ubiretama);
+        Endereco rAdolfo = new Endereco(null, "Rua Adolfo Schlosser", "Centro", "886", "88354-004", "", brusque);
+        Endereco rValmor = new Endereco(null, "Rua Valmor Chioquetta", "São João", "696", "85509-564", "", patoBranco);
 
-        Anotacao an1 = new Anotacao(null, "Teste de anotação", pac1);
+        Contato contato1 = new Contato(null, "geovaninieswald@gmail.com", "(55) 99624-6352");
+        Contato contato2 = new Contato(null, "carlaterezaporto.porto@suplementototal.com.br", "(55) 98864-2589");
+        Contato contato3 = new Contato(null, "ggiovannacristianeramos@jetstar.com.br", "(55) 99143-0857");
+        Contato contato4 = new Contato(null, "", "(55) 99953-6225");
+        Contato contato5 = new Contato(null, "robertodanilocarvalho_@dillon.com.br", "(47) 99143-0857");
+        Contato contato6 = new Contato(null, "fatimaadrianamariagomes_@pibnet.com.br", "(47) 98836-1231");
 
-        pac1.getAnotacoes().addAll(Arrays.asList(an1));
-        pac1.setOdontograma(odontograma);
+        Paciente carla = new Paciente(null, "Carla Tereza Porto", "523.138.819-03", "F", sdfData.parse("1958-02-24"), contato2, rCaxias);
+        Paciente valdemar = new Paciente(null, "Valdemar Nieswald", "861.733.319-77", "M", sdfData.parse("1949-03-02"), contato4, linha15);
+        Paciente roberto = new Paciente(null, "Roberto Danilo Carvalho", "615.767.379-69", "M", sdfData.parse("1995-02-08"), contato5, rAdolfo);
+        Paciente fatima = new Paciente(null, "Fátima Adriana Maria Gomes", "937.166.789-37", "F", sdfData.parse("1984-04-15"), contato6, rValmor);
 
-        Funcionario f1 = new Funcionario(null, "Geovani Alex Nieswald", "036.084.580-00", "9111083532", "M", calendario.getTime(), true, TipoFuncionario.DENTISTA, "RED", "9999", cont2, end2, user1);
+        Map<String, Object> odontograma1 = new HashMap<>();
+        odontograma1.put("d1", 1457);
+        Map<String, Object> odontograma2 = new HashMap<>();
+        odontograma2.put("d1", 1457);
+        Map<String, Object> odontograma3 = new HashMap<>();
+        odontograma3.put("d1", 1457);
+        Map<String, Object> odontograma4 = new HashMap<>();
+        odontograma4.put("d1", 1457);
 
-        Agendamento a1 = new Agendamento(null, "Dor de dente", "Dente inflamado", new Date(), new Date(), "Teste", StatusAgendamento.CONFIRMADO, pac1, f1);
+        carla.setOdontograma(odontograma1);
+        valdemar.setOdontograma(odontograma2);
+        roberto.setOdontograma(odontograma3);
+        fatima.setOdontograma(odontograma4);
 
-        Conta co1 = new Conta(null, "NuBank", TipoConta.CARTAO, true);
+        Anotacao anotacao1 = new Anotacao(null, "Teste de anotação Carla 1", carla);
+        Anotacao anotacao2 = new Anotacao(null, "Teste de anotação Carla 2", carla);
+        Anotacao anotacao3 = new Anotacao(null, "Teste de anotação Valdemar", valdemar);
+        Anotacao anotacao4 = new Anotacao(null, "Teste de anotação Roberto 1", roberto);
+        Anotacao anotacao5 = new Anotacao(null, "Teste de anotação Roberto 2", roberto);
+        Anotacao anotacao6 = new Anotacao(null, "Teste de anotação Fátima", fatima);
 
-        Movimentacao mov1 = new Movimentacao(null, "Agendamento 1", TipoMovimentacao.CONTA_RECEBER, StatusMovimentacao.CRIADA, co1, a1);
+        carla.getAnotacoes().addAll(Arrays.asList(anotacao1, anotacao2));
+        valdemar.getAnotacoes().addAll(Arrays.asList(anotacao3));
+        roberto.getAnotacoes().addAll(Arrays.asList(anotacao4, anotacao5));
+        fatima.getAnotacoes().addAll(Arrays.asList(anotacao6));
 
-        Parcela pa1 = new Parcela(null, new Date(), new BigDecimal(200), StatusParcela.CRIADA, mov1);
+        Usuario usuario1 = new Usuario(null, "geovaninieswald@gmail.com", "123", true, null);
+        Usuario usuario2 = new Usuario(null, "wiliamfelber@gmail.com", "123", true, null);
+        Usuario usuario3 = new Usuario(null, "daniel._.frey@hotmail.com", "123", true, null);
 
-        mov1.getParcelas().addAll(Arrays.asList(pa1));
-        a1.getMovimentacoes().addAll(Arrays.asList(mov1));
+        usuario1.getPermissoes().addAll(Arrays.asList(Permissao.ADMINISTRADOR, Permissao.DESENVOLVEDOR, Permissao.DENTISTA));
+        usuario2.getPermissoes().addAll(Arrays.asList(Permissao.ADMINISTRADOR, Permissao.DESENVOLVEDOR));
+        usuario3.getPermissoes().addAll(Arrays.asList(Permissao.ADMINISTRADOR, Permissao.DESENVOLVEDOR));
 
-        ProcedimentoAgendado procAgen1 = new ProcedimentoAgendado(proc1, a1, proc1.getValor(), new BigDecimal(1), BigDecimal.ZERO);
-        ProcedimentoAgendado procAgen2 = new ProcedimentoAgendado(proc2, a1, proc2.getValor(), new BigDecimal(1), BigDecimal.ZERO);
+        Funcionario geovani = new Funcionario(null, "Geovani Alex Nieswald", "036.084.580-00", "9111083532", "M", sdfData.parse("1996-05-30"), true, TipoFuncionario.DENTISTA, "Red", "9999", contato1, rRocco, usuario1);
+        Funcionario giovanna = new Funcionario(null, "Giovanna Cristiane Ramos", "925.006.289-30", "418034771", "F", sdfData.parse("1994-04-24"), true, TipoFuncionario.SECRETARIA, "Pink", null, contato3, rRio, null);
 
-        a1.getProcedimentos().addAll(Arrays.asList(procAgen1, procAgen2));
+        Conta nuConta = new Conta(null, "nuConta", TipoConta.CONTA_CORRENTE, true);
+        Conta cartaoNU = new Conta(null, "Cartão de Crédito NU", TipoConta.CARTAO, true);
+        Conta caixa = new Conta(null, "Conta Caixa", TipoConta.POUPANCA, false);
 
-        proc1.getProcedimentos().addAll(Arrays.asList(procAgen1));
-        proc2.getProcedimentos().addAll(Arrays.asList(procAgen2));
+        Agendamento agendamento1 = new Agendamento(null, "Dor de dente", "Inflamação", sdfDataHora.parse("2019-09-30 13:30"), sdfDataHora.parse("2019-09-30 14:00"), "Disse não ter alergias", StatusAgendamento.CONFIRMADO, valdemar, geovani);
+        Agendamento agendamento2 = new Agendamento(null, "", "", sdfDataHora.parse("2019-09-30 14:00"), sdfDataHora.parse("2019-09-30 14:30"), "", StatusAgendamento.AGENDADO, roberto, geovani);
+        Agendamento agendamento3 = new Agendamento(null, "", "", sdfDataHora.parse("2019-09-30 13:30"), sdfDataHora.parse("2019-09-30 14:00"), "Não vai poder vir por estar em viagem", StatusAgendamento.CANCELADO, fatima, geovani);
 
-        procedimentoRepository.saveAll(Arrays.asList(proc1, proc2, proc3));
-        usuarioRepository.saveAll(Arrays.asList(user1));
-        paisRepository.saveAll(Arrays.asList(p1));
-        estadoRepository.saveAll(Arrays.asList(e1, e2));
-        cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-        enderecoRepository.saveAll(Arrays.asList(end1, end2));
-        contatoRepository.saveAll(Arrays.asList(cont1, cont2));
-        pacienteRepository.saveAll(Arrays.asList(pac1));
-        anotacaoRepository.saveAll(Arrays.asList(an1));
-        funcionarioRepository.saveAll(Arrays.asList(f1));
-        agendamentoRepository.saveAll(Arrays.asList(a1));
+        Movimentacao movimentacao1 = new Movimentacao(null, "Agendamento 1", TipoMovimentacao.CONTA_RECEBER, StatusMovimentacao.CRIADA, nuConta, agendamento1);
+        Movimentacao movimentacao2 = new Movimentacao(null, "Agendamento 2", TipoMovimentacao.CONTA_RECEBER, StatusMovimentacao.CRIADA, nuConta, agendamento2);
+        Movimentacao movimentacao3 = new Movimentacao(null, "Agendamento 3", TipoMovimentacao.CONTA_RECEBER, StatusMovimentacao.CRIADA, nuConta, agendamento3);
+        Movimentacao movimentacao4 = new Movimentacao(null, "Compra de Notebook", TipoMovimentacao.CONTA_PAGAR, StatusMovimentacao.PAGA, cartaoNU, null);
 
-        contaRepository.saveAll(Arrays.asList(co1));
-        movimentacaoRepository.saveAll(Arrays.asList(mov1));
-        parcelaRepository.saveAll(Arrays.asList(pa1));
+        Parcela parcela1 = new Parcela(null, sdfData.parse("2019-09-30"), BigDecimal.valueOf(200), StatusParcela.CRIADA, movimentacao1);
+        Parcela parcela2 = new Parcela(null, sdfData.parse("2019-09-30"), BigDecimal.valueOf(3250), StatusParcela.CRIADA, movimentacao2);
+        Parcela parcela3 = new Parcela(null, sdfData.parse("2019-10-30"), BigDecimal.valueOf(3250), StatusParcela.CRIADA, movimentacao2);
+        Parcela parcela4 = new Parcela(null, sdfData.parse("2019-09-30"), BigDecimal.valueOf(1200), StatusParcela.CANCELADA, movimentacao3);
+        Parcela parcela5 = new Parcela(null, sdfData.parse("2019-09-01"), BigDecimal.valueOf(3599.99), StatusParcela.PAGA, movimentacao4);
 
-        procedimentoAgendadoRepository.saveAll(Arrays.asList(procAgen1, procAgen2));
+        parcela5.setData(sdfData.parse("2019-09-01"));
+
+        movimentacao1.getParcelas().addAll(Arrays.asList(parcela1));
+        movimentacao2.getParcelas().addAll(Arrays.asList(parcela2, parcela3));
+        movimentacao3.getParcelas().addAll(Arrays.asList(parcela4));
+        movimentacao4.getParcelas().addAll(Arrays.asList(parcela5));
+
+        agendamento1.getMovimentacoes().addAll(Arrays.asList(movimentacao1));
+        agendamento2.getMovimentacoes().addAll(Arrays.asList(movimentacao2));
+        agendamento3.getMovimentacoes().addAll(Arrays.asList(movimentacao3));
+
+        ProcedimentoAgendado procedimentoAgendado1 = new ProcedimentoAgendado(procedimento2, agendamento1, BigDecimal.valueOf(200), BigDecimal.ONE, BigDecimal.ZERO);
+        ProcedimentoAgendado procedimentoAgendado2 = new ProcedimentoAgendado(procedimento8, agendamento2, BigDecimal.valueOf(6500), BigDecimal.ONE, BigDecimal.ZERO);
+        ProcedimentoAgendado procedimentoAgendado3 = new ProcedimentoAgendado(procedimento1, agendamento3, BigDecimal.valueOf(1200), BigDecimal.ONE, BigDecimal.ZERO);
+
+        agendamento1.getProcedimentos().addAll(Arrays.asList(procedimentoAgendado1));
+        agendamento2.getProcedimentos().addAll(Arrays.asList(procedimentoAgendado2));
+        agendamento3.getProcedimentos().addAll(Arrays.asList(procedimentoAgendado3));
+
+        procedimento1.getProcedimentos().addAll(Arrays.asList(procedimentoAgendado3));
+        procedimento2.getProcedimentos().addAll(Arrays.asList(procedimentoAgendado1));
+        procedimento8.getProcedimentos().addAll(Arrays.asList(procedimentoAgendado2));
+
+        // Salvar
+
+        procedimentoRepository.saveAll(Arrays.asList(procedimento1, procedimento2, procedimento3, procedimento4, procedimento5, procedimento6, procedimento7, procedimento8));
+
+        paisRepository.saveAll(Arrays.asList(brasil));
+        estadoRepository.saveAll(Arrays.asList(rs, sc, pr));
+        cidadeRepository.saveAll(Arrays.asList(santaRosa, ubiretama, brusque, patoBranco));
+
+        enderecoRepository.saveAll(Arrays.asList(rRocco, rCaxias, rRio, linha15, rAdolfo, rValmor));
+        contatoRepository.saveAll(Arrays.asList(contato1, contato2, contato3, contato4, contato5, contato6));
+
+        pacienteRepository.saveAll(Arrays.asList(carla, valdemar, roberto, fatima));
+        anotacaoRepository.saveAll(Arrays.asList(anotacao1, anotacao2, anotacao3, anotacao4, anotacao5, anotacao6));
+
+        usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2, usuario3));
+        funcionarioRepository.saveAll(Arrays.asList(geovani, giovanna));
+
+        contaRepository.saveAll(Arrays.asList(nuConta, cartaoNU, caixa));
+
+        agendamentoRepository.saveAll(Arrays.asList(agendamento1, agendamento2, agendamento3));
+        movimentacaoRepository.saveAll(Arrays.asList(movimentacao1, movimentacao2, movimentacao3, movimentacao4));
+        parcelaRepository.saveAll(Arrays.asList(parcela1, parcela2, parcela3, parcela4, parcela5));
+
+        procedimentoAgendadoRepository.saveAll(Arrays.asList(procedimentoAgendado1, procedimentoAgendado2, procedimentoAgendado3));
     }
 }

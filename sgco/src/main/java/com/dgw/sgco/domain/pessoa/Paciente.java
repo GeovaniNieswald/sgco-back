@@ -42,7 +42,7 @@ public class Paciente implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date nascimento;
 
-    @Column(name = "odontograma", columnDefinition = "JSON")
+    @Column(name = "odontograma", columnDefinition = "JSON") // Teste: VARCHAR Dev e Prod: JSON
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> odontograma = new HashMap<>();
 

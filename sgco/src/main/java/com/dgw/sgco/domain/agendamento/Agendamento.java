@@ -44,11 +44,11 @@ public class Agendamento implements Serializable {
     private String diagnostico;
     private String observacao;
 
-    @Column(name = "receituario", columnDefinition = "JSON")
+    @Column(name = "receituario", columnDefinition = "JSON") // Teste: VARCHAR Dev e Prod: JSON
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> receituario = new HashMap<>();
 
-    @Column(name = "atestado", columnDefinition = "JSON")
+    @Column(name = "atestado", columnDefinition = "JSON") // Teste: VARCHAR Dev e Prod: JSON
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> atestado = new HashMap<>();
 
