@@ -6,11 +6,15 @@ import java.util.Optional;
 import com.dgw.sgco.domain.agendamento.Procedimento;
 import com.dgw.sgco.dto.agendamento.ProcedimentoDTO;
 import com.dgw.sgco.repositories.agendamento.ProcedimentoRepository;
+import com.dgw.sgco.resources.specifications.ProcedimentoSpec;
 import com.dgw.sgco.services.exceptions.DataIntegrityException;
 import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 /**
@@ -77,6 +81,22 @@ public class ProcedimentoService {
      */
     public List<Procedimento> findAll() {
         return repo.findAll();
+    }
+
+    /**
+     * Buscar procedimentos por filtro, de forma páginada
+     * 
+     * @param page             - Integer
+     * @param linesPerPage     - Integer
+     * @param orderBy          - String
+     * @param direction        - String
+     * @param procedimentoSpec - ProcedimentoSpec (nome, ativo)
+     * @return Page<Procedimento>
+     */
+    public Page<Procedimento> findPage(Integer page, Integer linesPerPage, String orderBy, String direction, ProcedimentoSpec procedimentoSpec) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+
+        return repo.findAll(procedimentoSpec, pageRequest);
     }
 
     /**

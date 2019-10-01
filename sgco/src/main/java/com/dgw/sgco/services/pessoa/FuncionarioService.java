@@ -143,6 +143,11 @@ public class FuncionarioService {
     /**
      * Buscar funcionários por filtro, de forma páginada
      * 
+     * @param page            - Integer
+     * @param linesPerPage    - Integer
+     * @param orderBy         - String
+     * @param direction       - String
+     * @param funcionarioSpec - FuncionarioSpec (nome, ativo)
      * @return Page<Funcionario>
      */
     public Page<Funcionario> findPage(Integer page, Integer linesPerPage, String orderBy, String direction, FuncionarioSpec funcionarioSpec) {

@@ -57,6 +57,39 @@
 							"response": []
 						},
 						{
+							"name": "Buscar por filtro",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/procedimentos/page?nome=ó&ativo=true",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"procedimentos",
+										"page"
+									],
+									"query": [
+										{
+											"key": "nome",
+											"value": "ó"
+										},
+										{
+											"key": "ativo",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Inserir",
 							"request": {
 								"method": "POST",
@@ -154,14 +187,43 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:8080/agendamentos/1",
+									"raw": "localhost:8080/agendamentos/20",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"agendamentos",
-										"1"
+										"20"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inserir",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"anamnese\": \"\",\n    \"diagnostico\": \"\",\n    \"observacao\": \"\",\n    \"receituario\": {},\n    \"atestado\": {},\n    \"dataHoraInicio\": \"03/10/2019 16:30\",\n    \"dataHoraFim\": \"03/10/2019 17:00\",\n    \"status\": 0,\n    \"paciente\": { \"id\": 3 },\n    \"funcionario\": { \"id\": 1 },\n    \"procedimentos\": [\n        {\n            \"quantidade\": 1,\n            \"procedimento\": { \"id\": 8 }\n        },\n        {\n        \t\"quantidade\": 1,\n        \t\"procedimento\": { \"id\": 7 }\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "localhost:8080/agendamentos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"agendamentos"
 									]
 								}
 							},

@@ -2,6 +2,7 @@ package com.dgw.sgco.domain.agendamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -45,13 +46,25 @@ public class ProcedimentoAgendado implements Serializable {
         this.desconto = desconto;
     }
 
+    public BigDecimal getSubTotal() {
+        return this.valor.multiply(this.quantidade).subtract(this.desconto).setScale(2, RoundingMode.HALF_DOWN);
+    }
+
     public Procedimento getProcedimento() {
         return this.id.getProcedimento();
+    }
+
+    public void setProcedimento(Procedimento procedimento) {
+        this.id.setProcedimento(procedimento);
     }
 
     @JsonIgnore
     public Agendamento getAgendamento() {
         return this.id.getAgendamento();
+    }
+
+    public void setAgendamento(Agendamento agendamento) {
+        this.id.setAgendamento(agendamento);
     }
 
     public ProcedimentoAgendadoPK getId() {

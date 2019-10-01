@@ -1,6 +1,8 @@
 package com.dgw.sgco.domain.agendamento;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,11 +18,13 @@ import com.dgw.sgco.domain.pessoa.Paciente;
 import com.dgw.sgco.utils.JsonToMapConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,17 +69,19 @@ public class Agendamento implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_paciente")
+    @JsonIgnoreProperties(value = {"anotacoes"})
     private Paciente paciente;
 
     @ManyToOne
     @JoinColumn(name = "id_funcionario")
+    @JsonIgnoreProperties(value = {"usuario"})
     private Funcionario funcionario;
 
     @JsonIgnore
     @OneToMany(mappedBy = "agendamento")
     private List<Movimentacao> movimentacoes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id.agendamento", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "id.agendamento", cascade = CascadeType.ALL)
     private Set<ProcedimentoAgendado> procedimentos = new HashSet<>();
 
     public Agendamento() {
@@ -105,6 +111,16 @@ public class Agendamento implements Serializable {
         this.status = (status == null) ? null : status.getCod();
         this.paciente = paciente;
         this.funcionario = funcionario;
+    }
+
+    public BigDecimal getValorTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+
+        for (ProcedimentoAgendado pa : this.procedimentos) {
+            total = total.add(pa.getSubTotal());
+        }
+
+        return total.setScale(2, RoundingMode.HALF_DOWN);
     }
 
     public Integer getId() {
