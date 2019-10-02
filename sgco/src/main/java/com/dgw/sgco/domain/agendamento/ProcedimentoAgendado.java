@@ -3,6 +3,8 @@ package com.dgw.sgco.domain.agendamento;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -124,4 +126,20 @@ public class ProcedimentoAgendado implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(this.getProcedimento().getNome());
+        builder.append(", Qte: ");
+        builder.append(this.getQuantidade());
+        builder.append(", Valor unitário: ");
+        builder.append(nf.format(this.getValor()));
+        builder.append(", Subtotal: ");
+        builder.append(nf.format(this.getSubTotal()));
+        builder.append("\n");
+
+        return builder.toString();
+    }
 }

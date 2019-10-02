@@ -6,7 +6,9 @@ import java.util.Optional;
 import com.dgw.sgco.domain.agendamento.Agendamento;
 import com.dgw.sgco.domain.agendamento.ProcedimentoAgendado;
 import com.dgw.sgco.repositories.agendamento.AgendamentoRepository;
+import com.dgw.sgco.services.email.EmailService;
 import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
+import com.dgw.sgco.services.pessoa.PacienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,12 @@ public class AgendamentoService {
     @Autowired
     private ProcedimentoService procedimentoService;
 
+    @Autowired
+    private PacienteService pacienteService;
+
+    @Autowired
+    private EmailService emailService;
+
     /**
      * Inserir um novo Agendamento
      * 
@@ -33,14 +41,20 @@ public class AgendamentoService {
     @Transactional
     public Agendamento insert(Agendamento obj) {
         obj.setId(null);
+        obj.setPaciente(pacienteService.find(obj.getPaciente().getId()));
 
         for (ProcedimentoAgendado pa : obj.getProcedimentos()) {
             pa.setDesconto(BigDecimal.ZERO);
-            pa.setValor(procedimentoService.find(pa.getProcedimento().getId()).getValor());
+            pa.setProcedimento(procedimentoService.find(pa.getProcedimento().getId()));
+            pa.setValor(pa.getProcedimento().getValor());
             pa.setAgendamento(obj);
         }
 
-        return repo.save(obj);
+        obj = repo.save(obj);
+
+        emailService.enviarNotificacaoAgendamento(obj);
+
+        return obj;
     }
 
     /**

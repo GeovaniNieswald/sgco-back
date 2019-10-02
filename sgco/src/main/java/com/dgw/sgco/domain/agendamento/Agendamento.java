@@ -3,11 +3,14 @@ package com.dgw.sgco.domain.agendamento;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,11 +51,11 @@ public class Agendamento implements Serializable {
     private String diagnostico;
     private String observacao;
 
-    @Column(name = "receituario", columnDefinition = "JSON") // Teste: VARCHAR Dev e Prod: JSON
+    @Column(name = "receituario", columnDefinition = "VARCHAR") // Teste: VARCHAR Dev e Prod: JSON
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> receituario = new HashMap<>();
 
-    @Column(name = "atestado", columnDefinition = "JSON") // Teste: VARCHAR Dev e Prod: JSON
+    @Column(name = "atestado", columnDefinition = "VARCHAR") // Teste: VARCHAR Dev e Prod: JSON
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> atestado = new HashMap<>();
 
@@ -250,6 +253,34 @@ public class Agendamento implements Serializable {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("Agendamento número: ");
+        builder.append(this.getId());
+        builder.append(", Data início: ");
+        builder.append(sdf.format(this.getDataHoraInicio()));
+        builder.append(", Data fim: ");
+        builder.append(sdf.format(this.getDataHoraFim()));
+        builder.append(", Paciente: ");
+        builder.append(this.getPaciente().getNome());
+        builder.append(", Status agendamento: ");
+        builder.append(this.getStatus().getDescricao());
+        builder.append("\nDetalhes:\n");
+
+        for (ProcedimentoAgendado pa : this.getProcedimentos()) {
+            builder.append(pa.toString());
+        }
+
+        builder.append("Valor total: ");
+        builder.append(nf.format(this.getValorTotal()));
+
+        return builder.toString();
     }
 
 }
