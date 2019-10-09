@@ -26,6 +26,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,8 @@ public class FuncionarioService {
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    @Autowired
+    private BCryptPasswordEncoder pe;
     @Autowired
     private FuncionarioRepository funcionarioRepo;
     @Autowired
@@ -178,7 +181,9 @@ public class FuncionarioService {
         Endereco endereco = new Endereco(objDTO.getEndereco().getId(), objDTO.getEndereco().getLogradouro(), objDTO.getEndereco().getBairro(), objDTO.getEndereco().getNumero(), objDTO.getEndereco().getCep(), objDTO.getEndereco().getComplemento(), cidade);
 
         if (objDTO.getUsuario() != null) {
-            Usuario usuario = new Usuario(objDTO.getUsuario().getId(), objDTO.getUsuario().getLogin(), objDTO.getUsuario().getSenha(), objDTO.getUsuario().isAtivo(), objDTO.getUsuario().getImagem());
+            String senhaCryp = pe.encode(objDTO.getUsuario().getSenha());
+
+            Usuario usuario = new Usuario(objDTO.getUsuario().getId(), objDTO.getUsuario().getLogin(), senhaCryp, objDTO.getUsuario().isAtivo(), objDTO.getUsuario().getImagem());
 
             for (Integer permissao : objDTO.getUsuario().getPermissoes()) {
                 usuario.getPermissoes().add(Permissao.toEnum(permissao));

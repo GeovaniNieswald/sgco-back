@@ -288,6 +288,35 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"geovaninieswald@gmail.com\",\n\t\"senha\": 123\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -544,14 +573,14 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:8080/funcionarios/2",
+									"raw": "localhost:8080/funcionarios/1",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"funcionarios",
-										"2"
+										"1"
 									]
 								}
 							},
@@ -560,8 +589,17 @@
 						{
 							"name": "Buscar todos",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW92YW5pbmllc3dhbGRAZ21haWwuY29tIiwiZXhwIjoxNTcwNTgwOTYyfQ.lGG3WjBU7xcYDsRL7g-CLIlBqSQH0TlHDAEQ6Dc8ju9SctKTGIlnPcU_ZGyQ6s4re8VeLOLFdl2-gAgeVPDL8g",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": ""

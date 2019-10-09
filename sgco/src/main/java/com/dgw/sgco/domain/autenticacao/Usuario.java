@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,11 +34,14 @@ public class Usuario implements Serializable {
     private Integer id;
 
     private String login;
+
+    @JsonIgnore
     private String senha;
+  
     private boolean ativo;
     private String imagem;
 
-    @ElementCollection(targetClass = Permissao.class)
+    @ElementCollection(targetClass = Permissao.class, fetch = FetchType.EAGER)
     @JoinTable(name = "permissao", joinColumns = @JoinColumn(name = "id_usuario"))
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "cod_permissao")

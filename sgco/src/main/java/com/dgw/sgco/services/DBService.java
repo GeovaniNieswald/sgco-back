@@ -46,6 +46,7 @@ import com.dgw.sgco.repositories.pessoa.PacienteRepository;
 import com.dgw.sgco.repositories.pessoa.PaisRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -54,6 +55,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DBService {
 
+    @Autowired
+    private BCryptPasswordEncoder pe;
     @Autowired
     private ProcedimentoRepository procedimentoRepository;
     @Autowired
@@ -144,7 +147,7 @@ public class DBService {
         Contato contato2 = new Contato(null, "carlaterezaporto.porto@suplementototal.com.br", "(55) 98864-2589");
         Contato contato3 = new Contato(null, "ggiovannacristianeramos@jetstar.com.br", "(55) 99143-0857");
         Contato contato4 = new Contato(null, "", "(55) 99953-6225");
-        Contato contato5 = new Contato(null, "robertodanilocarvalho_@dillon.com.br", "(47) 99143-0857");
+        Contato contato5 = new Contato(null, "geovani_alex@hotmail.com", "(47) 99143-0857");
         Contato contato6 = new Contato(null, "fatimaadrianamariagomes_@pibnet.com.br", "(47) 98836-1231");
 
         Paciente carla = new Paciente(null, "Carla Tereza Porto", "523.138.819-03", "F", sdfData.parse("1958-02-24"), contato2, rCaxias);
@@ -178,9 +181,9 @@ public class DBService {
         roberto.getAnotacoes().addAll(Arrays.asList(anotacao4, anotacao5));
         fatima.getAnotacoes().addAll(Arrays.asList(anotacao6));
 
-        Usuario usuario1 = new Usuario(null, "geovaninieswald@gmail.com", "123", true, null);
-        Usuario usuario2 = new Usuario(null, "wiliamfelber@gmail.com", "123", true, null);
-        Usuario usuario3 = new Usuario(null, "daniel._.frey@hotmail.com", "123", true, null);
+        Usuario usuario1 = new Usuario(null, "geovaninieswald@gmail.com", pe.encode("123"), true, null);
+        Usuario usuario2 = new Usuario(null, "wiliamfelber@gmail.com", pe.encode("123"), true, null);
+        Usuario usuario3 = new Usuario(null, "daniel._.frey@hotmail.com", pe.encode("123"), true, null);
 
         usuario1.getPermissoes().addAll(Arrays.asList(Permissao.ADMINISTRADOR, Permissao.DESENVOLVEDOR, Permissao.DENTISTA));
         usuario2.getPermissoes().addAll(Arrays.asList(Permissao.ADMINISTRADOR, Permissao.DESENVOLVEDOR));

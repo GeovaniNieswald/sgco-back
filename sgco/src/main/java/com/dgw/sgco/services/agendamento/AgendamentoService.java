@@ -52,7 +52,7 @@ public class AgendamentoService {
 
         obj = repo.save(obj);
 
-        emailService.enviarNotificacaoAgendamento(obj);
+        emailService.enviarNotificacaoAgendamentoHtml(obj);
 
         return obj;
     }

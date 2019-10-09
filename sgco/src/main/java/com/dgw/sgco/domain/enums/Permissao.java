@@ -5,24 +5,31 @@ package com.dgw.sgco.domain.enums;
  */
 public enum Permissao {
 
-    DESENVOLVEDOR(0, "Desenvolvedor"), ADMINISTRADOR(1, "Administrador"), SECRETARIA(2, "Secretária"), DENTISTA(3, "Dentista");
+    DESENVOLVEDOR(0, "ROLE_DEV", "Desenvolvedor"), ADMINISTRADOR(1, "ROLE_ADMIN", "Administrador"), SECRETARIA(2, "ROLE_SECR", "Secretária"), DENTISTA(3, "ROLE_DENT", "Dentista");
 
     private Integer cod;
+    private String nomeInterno;
     private String descricao;
 
     /**
      * ENUM Permissão
      * 
-     * @param cod       - Integer
-     * @param descricao - String
+     * @param cod         - Integer
+     * @param nomeInterno - String
+     * @param descricao   - String
      */
-    private Permissao(Integer cod, String descricao) {
+    private Permissao(Integer cod, String nomeInterno, String descricao) {
         this.cod = cod;
+        this.nomeInterno = nomeInterno;
         this.descricao = descricao;
     }
 
     public Integer getCod() {
         return this.cod;
+    }
+
+    public String getNomeInterno() {
+        return this.nomeInterno;
     }
 
     public String getDescricao() {
