@@ -6,6 +6,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import com.dgw.sgco.domain.agendamento.Agendamento;
+import com.dgw.sgco.domain.autenticacao.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,6 +54,18 @@ public abstract class AbstractEmailService implements EmailService {
         } catch (MessagingException ex) {
             enviarNotificacaoAgendamento(obj);
         }
+    }
+
+    /**
+     * Implementação do método para enviar um email com a nova senha
+     * 
+     * @param user    - Usuario
+     * @param newPass - String
+     */
+    @Override
+    public void sendNewPasswordEmail(Usuario user, String newPass) {
+        SimpleMailMessage sm = prepareNewPasswordEmail(user, newPass);
+        sendEmail(sm);
     }
 
     /**
@@ -104,5 +117,24 @@ public abstract class AbstractEmailService implements EmailService {
         context.setVariable("agendamento", obj);
 
         return templateEngine.process("email/confirmacaoAgendamento", context);
+    }
+
+    /**
+     * Método para preparar o email com os dados da nova senha
+     * 
+     * @param user    - Usuario
+     * @param newPass - String
+     * @return SimpleMailMessage
+     */
+    protected SimpleMailMessage prepareNewPasswordEmail(Usuario user, String newPass) {
+        SimpleMailMessage sm = new SimpleMailMessage();
+
+        sm.setTo(user.getLogin());
+        sm.setFrom(sender);
+        sm.setSubject("Solicitação de nova senha");
+        sm.setSentDate(new Date(System.currentTimeMillis()));
+        sm.setText("Nova senha: " + newPass);
+
+        return sm;
     }
 }

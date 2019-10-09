@@ -18,6 +18,9 @@ import com.dgw.sgco.repositories.pessoa.ContatoRepository;
 import com.dgw.sgco.repositories.pessoa.EnderecoRepository;
 import com.dgw.sgco.repositories.pessoa.FuncionarioRepository;
 import com.dgw.sgco.resources.specifications.FuncionarioSpec;
+import com.dgw.sgco.security.UserSS;
+import com.dgw.sgco.services.autenticacao.UserService;
+import com.dgw.sgco.services.exceptions.AuthorizationException;
 import com.dgw.sgco.services.exceptions.DataIntegrityException;
 import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
 
@@ -130,6 +133,12 @@ public class FuncionarioService {
      * @return Funcionario
      */
     public Funcionario find(Integer id) {
+        UserSS user = UserService.authenticated();
+
+        if (user == null || !user.hasRole(Permissao.ADMINISTRADOR) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
         Optional<Funcionario> obj = funcionarioRepo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Funcionario.class.getName()));
     }

@@ -303,7 +303,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"geovaninieswald@gmail.com\",\n\t\"senha\": 123\n}"
+							"raw": "{\n\t\"email\":\"geovaninieswald@gmail.com\",\n\t\"senha\": \"123\"\n}"
 						},
 						"url": {
 							"raw": "localhost:8080/login",
@@ -313,6 +313,70 @@
 							"port": "8080",
 							"path": [
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar TOKEN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW92YW5pbmllc3dhbGRAZ21haWwuY29tIiwiZXhwIjoxNTcwNTkxNjM3fQ.xIx73KTBPwuuwM4T7dihKo8ia8vS--XDSLH0EO96Xh7uKK1jUFx_pPRqvSFh-X2ne1KKON8xywRXYpX0Ins3uA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/auth/refresh_token",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"refresh_token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Esqueci Senha",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW92YW5pbmllc3dhbGRAZ21haWwuY29tIiwiZXhwIjoxNTcwNTkxNjM3fQ.xIx73KTBPwuuwM4T7dihKo8ia8vS--XDSLH0EO96Xh7uKK1jUFx_pPRqvSFh-X2ne1KKON8xywRXYpX0Ins3uA"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"geovaninieswald@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/auth/forgot",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"forgot"
 							]
 						}
 					},

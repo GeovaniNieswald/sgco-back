@@ -3,6 +3,7 @@ package com.dgw.sgco.services.email;
 import javax.mail.internet.MimeMessage;
 
 import com.dgw.sgco.domain.agendamento.Agendamento;
+import com.dgw.sgco.domain.autenticacao.Usuario;
 
 import org.springframework.mail.SimpleMailMessage;
 
@@ -38,4 +39,12 @@ public interface EmailService {
      * @param msg - MimeMessage
      */
     void sendHtmlEmail(MimeMessage msg);
+
+    /**
+     * Método para enviar um email com a nova senha gerada
+     * 
+     * @param user    - Usuario
+     * @param newPass - String
+     */
+    void sendNewPasswordEmail(Usuario user, String newPass);
 }

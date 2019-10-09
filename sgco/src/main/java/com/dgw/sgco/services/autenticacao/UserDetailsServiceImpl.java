@@ -1,4 +1,4 @@
-package com.dgw.sgco.services;
+package com.dgw.sgco.services.autenticacao;
 
 import com.dgw.sgco.domain.autenticacao.Usuario;
 import com.dgw.sgco.repositories.autenticacao.UsuarioRepository;

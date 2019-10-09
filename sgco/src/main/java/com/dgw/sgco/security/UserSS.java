@@ -53,12 +53,10 @@ public class UserSS implements UserDetails {
         return this.senha;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -78,5 +76,15 @@ public class UserSS implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    /**
+     * Método para verificar se o usuário possui a permissão informada
+     * 
+     * @param permissao - Permissao
+     * @return boolean
+     */
+    public boolean hasRole(Permissao permissao) {
+        return this.getAuthorities().contains(new SimpleGrantedAuthority(permissao.getNomeInterno()));
     }
 }

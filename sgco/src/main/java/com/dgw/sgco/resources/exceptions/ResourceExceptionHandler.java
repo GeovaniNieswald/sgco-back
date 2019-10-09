@@ -4,6 +4,7 @@ import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.dgw.sgco.services.exceptions.AuthorizationException;
 import com.dgw.sgco.services.exceptions.DataIntegrityException;
 import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
 
@@ -78,5 +79,19 @@ public class ResourceExceptionHandler {
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    /**
+     * Handler para quando o usuário tentar acessar algo que não possui permissão
+     * 
+     * @param e       - AuthorizationException
+     * @param request - HttpServletRequest
+     * @return ResponseEntity -> StandardError -> FORBIDDEN
+     */
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+        StandardError error = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 }
