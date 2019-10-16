@@ -631,7 +631,13 @@
 							"name": "Buscar por id",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW92YW5pbmllc3dhbGRAZ21haWwuY29tIiwiZXhwIjoxNTcwNjcxNTEyfQ.gzs9M5AV7SxUfozGT6OystwuEp1gDa8M7jTR9kVmvSL8Tt3wwdl3eDFWJ2Qq7WJxN9qZwwc4BX7X1vCQPRuvvw",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": ""
@@ -645,37 +651,12 @@
 									"path": [
 										"funcionarios",
 										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Buscar todos",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW92YW5pbmllc3dhbGRAZ21haWwuY29tIiwiZXhwIjoxNTcwNTgwOTYyfQ.lGG3WjBU7xcYDsRL7g-CLIlBqSQH0TlHDAEQ6Dc8ju9SctKTGIlnPcU_ZGyQ6s4re8VeLOLFdl2-gAgeVPDL8g",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "localhost:8080/funcionarios",
-									"host": [
-										"localhost"
 									],
-									"port": "8080",
-									"path": [
-										"funcionarios"
+									"query": [
+										{
+											"key": "",
+											"value": ""
+										}
 									]
 								}
 							},
@@ -685,20 +666,26 @@
 							"name": "Buscar por filtro",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW92YW5pbmllc3dhbGRAZ21haWwuY29tIiwiZXhwIjoxNTcwNjY3NjY4fQ.c56dipeZZbExqTPnOUs8E7qn9IypaCd_OCZf2Du7TFqP2PcH9Cny5T0ZAzJAYYto7sP67VW4_NzSjjpm0xphkA",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": ""
 								},
 								"url": {
-									"raw": "localhost:8080/funcionarios/page?nome=g&ativo=true",
+									"raw": "localhost:8080/funcionarios/?nome=g&ativo=true",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
 										"funcionarios",
-										"page"
+										""
 									],
 									"query": [
 										{
@@ -806,7 +793,13 @@
 							"name": "Buscar por id",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW92YW5pbmllc3dhbGRAZ21haWwuY29tIiwiZXhwIjoxNTcwNjY3NjY4fQ.c56dipeZZbExqTPnOUs8E7qn9IypaCd_OCZf2Du7TFqP2PcH9Cny5T0ZAzJAYYto7sP67VW4_NzSjjpm0xphkA",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": ""
