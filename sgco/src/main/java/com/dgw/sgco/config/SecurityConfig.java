@@ -6,6 +6,7 @@ import com.dgw.sgco.security.JWTAuthenticationFilter;
 import com.dgw.sgco.security.JWTAuthorizationFilter;
 import com.dgw.sgco.security.JWTUtil;
 
+// import org.springframework.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,6 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
         }
+
+        // HttpHeaders responseHeaders = new HttpHeaders();
+        // responseHeaders.set("Content-Type", "application/json;charset=UTF-8");
 
         http.cors().and().csrf().disable();
         http.authorizeRequests()

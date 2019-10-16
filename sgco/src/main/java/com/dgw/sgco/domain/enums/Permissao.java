@@ -5,7 +5,7 @@ package com.dgw.sgco.domain.enums;
  */
 public enum Permissao {
 
-    DESENVOLVEDOR(0, "ROLE_DEV", "Desenvolvedor"), ADMINISTRADOR(1, "ROLE_ADMIN", "Administrador"), SECRETARIA(2, "ROLE_SECR", "Secretária"), DENTISTA(3, "ROLE_DENT", "Dentista");
+    ADMINISTRADOR(1, "ROLE_ADMIN", "Administrador"), SECRETARIA(2, "ROLE_SECR", "Secretária"), DENTISTA(3, "ROLE_DENT", "Dentista");
 
     private Integer cod;
     private String nomeInterno;

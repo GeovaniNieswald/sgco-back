@@ -2,8 +2,6 @@ package com.dgw.sgco.resources.pessoa;
 
 import java.net.URI;
 import java.text.ParseException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -92,6 +90,7 @@ public class FuncionarioResource {
      * @param id - Integer
      * @return ResponseEntity -> Funcionario
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Funcionario> find(@PathVariable Integer id) {
         Funcionario obj = service.find(id);
@@ -100,25 +99,13 @@ public class FuncionarioResource {
     }
 
     /**
-     * Buscar todos funcionários
-     * 
-     * @return ResponseEntity -> List<FuncionarioGetDTO>
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<FuncionarioGetDTO>> findAll() {
-        List<Funcionario> list = service.findAll();
-        List<FuncionarioGetDTO> listDTO = list.stream().map(obj -> new FuncionarioGetDTO(obj)).collect(Collectors.toList());
-
-        return ResponseEntity.ok().body(listDTO);
-    }
-
-    /**
      * Buscar funcionários por filtro, de forma páginada
      * 
      * @return ResponseEntity -> List<Funcionario>
      */
-    @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public ResponseEntity<Page<FuncionarioGetDTO>> finPage(
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Page<FuncionarioGetDTO>> findByFilter(
             FuncionarioSpec funcionarioSpec,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -130,5 +117,4 @@ public class FuncionarioResource {
 
         return ResponseEntity.ok().body(listDTO);
     }
-
 }
