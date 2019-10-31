@@ -6,7 +6,6 @@ import com.dgw.sgco.security.JWTAuthenticationFilter;
 import com.dgw.sgco.security.JWTAuthorizationFilter;
 import com.dgw.sgco.security.JWTUtil;
 
-// import org.springframework.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,9 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.headers().frameOptions().disable();
         }
 
-        // HttpHeaders responseHeaders = new HttpHeaders();
-        // responseHeaders.set("Content-Type", "application/json;charset=UTF-8");
-
         http.cors().and().csrf().disable();
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
@@ -68,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+        http.addFilterBefore(new ResponseFiler(), JWTAuthorizationFilter.class);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

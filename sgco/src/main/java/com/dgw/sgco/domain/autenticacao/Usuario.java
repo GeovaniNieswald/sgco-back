@@ -1,19 +1,18 @@
 package com.dgw.sgco.domain.autenticacao;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 
@@ -37,15 +36,14 @@ public class Usuario implements Serializable {
 
     @JsonIgnore
     private String senha;
-  
+
     private boolean ativo;
     private String imagem;
 
-    @ElementCollection(targetClass = Permissao.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "permissao", joinColumns = @JoinColumn(name = "id_usuario"))
-    @Enumerated(EnumType.ORDINAL)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "permissao", joinColumns = @JoinColumn(name = "id_usuario"))
     @Column(name = "cod_permissao")
-    private List<Permissao> permissoes = new ArrayList<>();
+    private Set<Integer> permissoes = new HashSet<>();
 
     @JsonIgnore
     @OneToOne(mappedBy = "usuario")
@@ -112,12 +110,12 @@ public class Usuario implements Serializable {
         this.imagem = imagem;
     }
 
-    public List<Permissao> getPermissoes() {
+    public Set<Integer> getPermissoes() {
         return permissoes;
     }
 
-    public void setPermissoes(List<Permissao> permissoes) {
-        this.permissoes = permissoes;
+    public void setPermissoes(Set<Permissao> permissoes) {
+        this.permissoes = permissoes.stream().map(x -> x.getCod()).collect(Collectors.toSet());
     }
 
     public Funcionario getFuncionario() {

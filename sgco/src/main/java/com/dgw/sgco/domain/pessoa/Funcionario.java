@@ -162,8 +162,8 @@ public class Funcionario implements Serializable {
         this.ativo = ativo;
     }
 
-    public TipoFuncionario getTipo() {
-        return TipoFuncionario.toEnum(this.tipo);
+    public Integer getTipo() {
+        return this.tipo;
     }
 
     public void setTipo(TipoFuncionario tipo) {

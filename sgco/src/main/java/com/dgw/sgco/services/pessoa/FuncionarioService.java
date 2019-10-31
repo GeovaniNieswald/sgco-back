@@ -21,11 +21,9 @@ import com.dgw.sgco.resources.specifications.FuncionarioSpec;
 import com.dgw.sgco.security.UserSS;
 import com.dgw.sgco.services.autenticacao.UserService;
 import com.dgw.sgco.services.exceptions.AuthorizationException;
-import com.dgw.sgco.services.exceptions.DataIntegrityException;
 import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -104,26 +102,16 @@ public class FuncionarioService {
     }
 
     /**
-     * Excluir um Funcionario pelo id
+     * Desativar um Funcionario pelo id
      * 
      * @param id - Integer
      */
     @Transactional
-    public void delete(Integer id) {
+    public void disable(Integer id) {
         Funcionario funcionario = find(id);
+        funcionario.setAtivo(false);
 
-        try {
-            funcionarioRepo.deleteById(id);
-
-            enderecoRepo.deleteById(funcionario.getEndereco().getId());
-            contatoRepo.deleteById(funcionario.getContato().getId());
-
-            if (funcionario.getUsuario() != null) {
-                usuarioRepo.deleteById(funcionario.getUsuario().getId());
-            }
-        } catch (DataIntegrityViolationException ex) {
-            throw new DataIntegrityException("Não é possível excluir um Funcionario que já tenha algum agendamento!");
-        }
+        funcionarioRepo.save(funcionario);
     }
 
     /**
@@ -195,7 +183,7 @@ public class FuncionarioService {
             Usuario usuario = new Usuario(objDTO.getUsuario().getId(), objDTO.getUsuario().getLogin(), senhaCryp, objDTO.getUsuario().isAtivo(), objDTO.getUsuario().getImagem());
 
             for (Integer permissao : objDTO.getUsuario().getPermissoes()) {
-                usuario.getPermissoes().add(Permissao.toEnum(permissao));
+                usuario.getPermissoes().add(permissao);
             }
 
             funcionario.setUsuario(usuario);

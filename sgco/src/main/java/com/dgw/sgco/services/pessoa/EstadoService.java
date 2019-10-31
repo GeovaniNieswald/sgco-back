@@ -1,5 +1,6 @@
 package com.dgw.sgco.services.pessoa;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.dgw.sgco.domain.pessoa.Estado;
@@ -27,6 +28,15 @@ public class EstadoService {
     public Estado find(Integer id) {
         Optional<Estado> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Estado.class.getName()));
+    }
+
+    /**
+     * Buscar todos os Estados
+     * 
+     * @return List<Estado>
+     */
+    public List<Estado> findAll() {
+        return repo.findAll();
     }
 
 }

@@ -5,11 +5,17 @@ import java.text.ParseException;
 
 import javax.validation.Valid;
 
+import com.dgw.sgco.domain.enums.Permissao;
+import com.dgw.sgco.domain.enums.TipoFuncionario;
 import com.dgw.sgco.domain.pessoa.Funcionario;
 import com.dgw.sgco.dto.pessoa.FuncionarioDTO;
 import com.dgw.sgco.dto.pessoa.FuncionarioGetDTO;
 import com.dgw.sgco.resources.specifications.FuncionarioSpec;
+import com.dgw.sgco.services.pessoa.EstadoService;
 import com.dgw.sgco.services.pessoa.FuncionarioService;
+import com.dgw.sgco.services.pessoa.PaisService;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +38,10 @@ public class FuncionarioResource {
 
     @Autowired
     private FuncionarioService service;
+    @Autowired
+    private PaisService servicePais;
+    @Autowired
+    private EstadoService serviceEstado;
 
     /**
      * Inserir um novo Funcionario
@@ -71,15 +81,15 @@ public class FuncionarioResource {
     }
 
     /**
-     * Excluir um Funcionario pelo id
+     * Desativar um Funcionario pelo id
      * 
      * @param id - Integer
      * @return ResponseEntity
      */
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        service.delete(id);
+    public ResponseEntity<Void> disable(@PathVariable Integer id) {
+        service.disable(id);
 
         return ResponseEntity.noContent().build();
     }
@@ -116,5 +126,60 @@ public class FuncionarioResource {
         Page<FuncionarioGetDTO> listDTO = list.map(obj -> new FuncionarioGetDTO(obj));
 
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    /**
+     * Buscar informações para visualização/inserção/alteração de funcionários
+     * 
+     * @return ResponseEntity -> String
+     */
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(method = RequestMethod.OPTIONS)
+    public ResponseEntity<String> infos() {
+        JsonArray arrayPaises = new JsonArray();
+        JsonArray arrayEstados = new JsonArray();
+        JsonArray arrayTiposFuncionarios = new JsonArray();
+        JsonArray arrayPermissoes = new JsonArray();
+
+        servicePais.findAll().forEach(x -> {
+            JsonObject obj = new JsonObject();
+            obj.addProperty("id", x.getId());
+            obj.addProperty("nome", x.getNome());
+
+            arrayPaises.add(obj);
+        });
+
+        serviceEstado.findAll().forEach(x -> {
+            JsonObject obj = new JsonObject();
+            obj.addProperty("id", x.getId());
+            obj.addProperty("nome", x.getNome());
+            obj.addProperty("id_pais", x.getPais().getId());
+
+            arrayEstados.add(obj);
+        });
+
+        for (TipoFuncionario tf : TipoFuncionario.values()) {
+            JsonObject obj = new JsonObject();
+            obj.addProperty("cod", tf.getCod());
+            obj.addProperty("nome", tf.getDescricao());
+
+            arrayTiposFuncionarios.add(obj);
+        }
+
+        for (Permissao p : Permissao.values()) {
+            JsonObject obj = new JsonObject();
+            obj.addProperty("cod", p.getCod());
+            obj.addProperty("nome", p.getDescricao());
+
+            arrayPermissoes.add(obj);
+        }
+
+        JsonObject obj = new JsonObject();
+        obj.add("tipos", arrayTiposFuncionarios);
+        obj.add("permissoes", arrayPermissoes);
+        obj.add("paises", arrayPaises);
+        obj.add("estados", arrayEstados);
+
+        return ResponseEntity.ok().body(obj.toString());
     }
 }

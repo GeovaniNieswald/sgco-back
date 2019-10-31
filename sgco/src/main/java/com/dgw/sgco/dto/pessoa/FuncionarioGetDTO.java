@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.dgw.sgco.domain.enums.TipoFuncionario;
 import com.dgw.sgco.domain.pessoa.Funcionario;
 
 import org.hibernate.validator.constraints.Length;
@@ -20,9 +21,9 @@ public class FuncionarioGetDTO implements Serializable {
     @NotEmpty(message = "Preenchimento obrigatório")
     @Length(min = 5, max = 60, message = "O tamanho deve ser entre 5 e 60 caracteres")
     private String nome;
-    
+
     private String cpf;
-    private Integer tipo;
+    private String tipo;
     private String telefone;
     private boolean ativo;
 
@@ -37,7 +38,7 @@ public class FuncionarioGetDTO implements Serializable {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.cpf = obj.getCpf();
-        this.tipo = obj.getTipo().getCod();
+        this.tipo = TipoFuncionario.toEnum(obj.getTipo()).getDescricao();
         this.telefone = obj.getContato().getTelefone1();
         this.ativo = obj.isAtivo();
     }
@@ -58,12 +59,12 @@ public class FuncionarioGetDTO implements Serializable {
         this.nome = nome;
     }
 
-    public Integer getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
     public void setTipo(Integer tipo) {
-        this.tipo = tipo;
+        this.tipo = TipoFuncionario.toEnum(tipo).getDescricao();
     }
 
     public boolean isAtivo() {

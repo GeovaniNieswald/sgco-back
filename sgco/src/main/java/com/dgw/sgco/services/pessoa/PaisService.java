@@ -1,5 +1,6 @@
 package com.dgw.sgco.services.pessoa;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.dgw.sgco.domain.pessoa.Pais;
@@ -27,6 +28,15 @@ public class PaisService {
     public Pais find(Integer id) {
         Optional<Pais> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Pais.class.getName()));
+    }
+
+    /**
+     * Buscar todos os Paises
+     * 
+     * @return List<Pais>
+     */
+    public List<Pais> findAll() {
+        return repo.findAll();
     }
 
 }

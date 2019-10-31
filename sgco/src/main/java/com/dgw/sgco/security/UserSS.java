@@ -1,7 +1,7 @@
 package com.dgw.sgco.security;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.dgw.sgco.domain.enums.Permissao;
@@ -30,13 +30,13 @@ public class UserSS implements UserDetails {
      * @param id         - Integer
      * @param email      - String
      * @param senha      - String
-     * @param permissoes - List<Permissao>
+     * @param permissoes - Set<Integer>
      */
-    public UserSS(Integer id, String email, String senha, List<Permissao> permissoes) {
+    public UserSS(Integer id, String email, String senha, Set<Integer> permissoes) {
         this.id = id;
         this.email = email;
         this.senha = senha;
-        this.authorities = permissoes.stream().map(x -> new SimpleGrantedAuthority(x.getNomeInterno())).collect(Collectors.toList());
+        this.authorities = permissoes.stream().map(x -> new SimpleGrantedAuthority(Permissao.toEnum(x).getNomeInterno())).collect(Collectors.toList());
     }
 
     public Integer getId() {

@@ -59,7 +59,7 @@ public class FuncionarioDTO implements Serializable {
         this.sexo = obj.getSexo();
         this.ativo = obj.isAtivo();
         this.nascimento = sdf.format(obj.getNascimento());
-        this.tipo = obj.getTipo().getCod();
+        this.tipo = obj.getTipo();
         this.corAgenda = obj.getCorAgenda();
         this.crmCro = obj.getCrmCro();
     }

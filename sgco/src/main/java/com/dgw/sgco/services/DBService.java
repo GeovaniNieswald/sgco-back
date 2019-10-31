@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.dgw.sgco.domain.agendamento.Agendamento;
@@ -185,9 +186,9 @@ public class DBService {
         Usuario usuario2 = new Usuario(null, "wiliamfelber@gmail.com", pe.encode("123"), true, null);
         Usuario usuario3 = new Usuario(null, "daniel._.frey@hotmail.com", pe.encode("123"), true, null);
 
-        usuario1.getPermissoes().addAll(Arrays.asList(Permissao.ADMINISTRADOR, Permissao.DENTISTA));
-        usuario2.getPermissoes().addAll(Arrays.asList(Permissao.ADMINISTRADOR));
-        usuario3.getPermissoes().addAll(Arrays.asList(Permissao.ADMINISTRADOR));
+        usuario1.setPermissoes(new HashSet<>(Arrays.asList(Permissao.ADMINISTRADOR, Permissao.DENTISTA)));
+        usuario2.setPermissoes(new HashSet<>(Arrays.asList(Permissao.ADMINISTRADOR)));
+        usuario3.setPermissoes(new HashSet<>(Arrays.asList(Permissao.ADMINISTRADOR)));
 
         Funcionario geovani = new Funcionario(null, "Geovani Alex Nieswald", "036.084.580-00", "9111083532", "M", sdfData.parse("1996-05-30"), true, TipoFuncionario.DENTISTA, "Red", "9999", contato1, rRocco, usuario1);
         Funcionario giovanna = new Funcionario(null, "Giovanna Cristiane Ramos", "925.006.289-30", "418034771", "F", sdfData.parse("1994-04-24"), true, TipoFuncionario.SECRETARIA, "Pink", null, contato3, rRio, null);
