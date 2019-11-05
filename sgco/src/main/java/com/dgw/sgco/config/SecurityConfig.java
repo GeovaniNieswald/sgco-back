@@ -2,6 +2,7 @@ package com.dgw.sgco.config;
 
 import java.util.Arrays;
 
+import com.dgw.sgco.repositories.autenticacao.UsuarioRepository;
 import com.dgw.sgco.security.JWTAuthenticationFilter;
 import com.dgw.sgco.security.JWTAuthorizationFilter;
 import com.dgw.sgco.security.JWTUtil;
@@ -33,12 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JWTUtil jwtUtil;
-
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Autowired
     private Environment env;
+    @Autowired
+    private UsuarioRepository usuarioRepo;
 
     private static final String[] PUBLIC_MATCHERS = {
             "/h2-console/**"
@@ -62,9 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated();
-        http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
-        http.addFilterBefore(new ResponseFiler(), JWTAuthorizationFilter.class);
+        http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil, usuarioRepo));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService, usuarioRepo));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

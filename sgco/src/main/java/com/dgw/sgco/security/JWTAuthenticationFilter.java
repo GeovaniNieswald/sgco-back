@@ -9,7 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dgw.sgco.config.UsuarioAtivoFilter;
 import com.dgw.sgco.dto.autenticacao.CredenciaisDTO;
+import com.dgw.sgco.repositories.autenticacao.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,14 +27,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
-
     private JWTUtil jwtUtil;
+    private UsuarioRepository repoUsuario;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, UsuarioRepository repoUsuario) {
         setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
 
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.repoUsuario = repoUsuario;
     }
 
     @Override
@@ -53,6 +56,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String email = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(email);
         res.addHeader("Authorization", "Bearer " + token);
+
+        UsuarioAtivoFilter usuarioAtivoFilter = new UsuarioAtivoFilter(jwtUtil, repoUsuario);
+        usuarioAtivoFilter.doFilter(req, res);
     }
 
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
