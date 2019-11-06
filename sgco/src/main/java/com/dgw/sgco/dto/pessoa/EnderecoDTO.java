@@ -2,6 +2,8 @@ package com.dgw.sgco.dto.pessoa;
 
 import java.io.Serializable;
 
+import com.dgw.sgco.domain.pessoa.Endereco;
+
 /**
  * EnderecoDTO
  */
@@ -29,6 +31,17 @@ public class EnderecoDTO implements Serializable {
         this.cep = cep;
         this.complemento = complemento;
         this.idCidade = idCidade;
+    }
+
+    public EnderecoDTO(Endereco endereco) {
+        this();
+        this.id = endereco.getId();
+        this.logradouro = endereco.getLogradouro();
+        this.bairro = endereco.getBairro();
+        this.numero = endereco.getNumero();
+        this.cep = endereco.getCep();
+        this.complemento = endereco.getComplemento();
+        this.idCidade = endereco.getCidade().getId();
     }
 
     public Integer getId() {

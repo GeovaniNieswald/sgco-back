@@ -2,6 +2,8 @@ package com.dgw.sgco.dto.pessoa;
 
 import java.io.Serializable;
 
+import com.dgw.sgco.domain.pessoa.Contato;
+
 /**
  * ContatoDTO
  */
@@ -22,6 +24,14 @@ public class ContatoDTO implements Serializable {
         this.id = id;
         this.email = email;
         this.telefone1 = telefone1;
+    }
+
+    public ContatoDTO(Contato contato) {
+        this();
+        this.id = contato.getId();
+        this.email = contato.getEmail();
+        this.telefone1 = contato.getTelefone1();
+        this.telefone2 = contato.getTelefone2();
     }
 
     public Integer getId() {

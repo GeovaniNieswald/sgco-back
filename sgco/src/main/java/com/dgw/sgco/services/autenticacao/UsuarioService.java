@@ -5,7 +5,11 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import com.dgw.sgco.domain.autenticacao.Usuario;
+import com.dgw.sgco.domain.enums.TipoFuncionario;
 import com.dgw.sgco.domain.pessoa.Funcionario;
+import com.dgw.sgco.dto.autenticacao.UsuarioPerfilDTO;
+import com.dgw.sgco.dto.pessoa.ContatoDTO;
+import com.dgw.sgco.dto.pessoa.EnderecoDTO;
 import com.dgw.sgco.repositories.autenticacao.UsuarioRepository;
 import com.dgw.sgco.repositories.pessoa.FuncionarioRepository;
 import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
@@ -33,6 +37,36 @@ public class UsuarioService {
     public Usuario find(Integer id) {
         Optional<Usuario> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
+    }
+
+    public UsuarioPerfilDTO findPerfil(String email) {
+        UsuarioPerfilDTO objDTO = new UsuarioPerfilDTO();
+
+        Usuario obj = repo.findByLogin(email);
+
+        if (obj == null) {
+            throw new ObjectNotFoundException("Objeto não encontrado! Email: " + email + ", Tipo: " + Usuario.class.getName());
+        }
+
+        objDTO.setEmail(obj.getLogin());
+        objDTO.setImagem(obj.getImagem());
+
+        Funcionario funcionario = funcionarioRepo.findByUsuarioId(obj.getId());
+
+        if (funcionario != null) {
+            objDTO.setNome(funcionario.getNome());
+            objDTO.setCpf(funcionario.getCpf());
+            objDTO.setRg(funcionario.getRg());
+            objDTO.setSexo(funcionario.getSexo());
+            objDTO.setNascimento(funcionario.getNascimento());
+            objDTO.setCrmCro(funcionario.getCrmCro());
+            objDTO.setTipo(TipoFuncionario.toEnum(funcionario.getTipo()).getDescricao());
+
+            objDTO.setEndereco(new EnderecoDTO(funcionario.getEndereco()));
+            objDTO.setContato(new ContatoDTO(funcionario.getContato()));
+        }
+
+        return objDTO;
     }
 
     /**
