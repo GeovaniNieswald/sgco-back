@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.dgw.sgco.dto.pessoa.ContatoDTO;
 import com.dgw.sgco.dto.pessoa.EnderecoDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * UsuarioPerfilDTO
@@ -19,6 +20,8 @@ public class UsuarioPerfilDTO implements Serializable {
     private String cpf;
     private String rg;
     private String sexo;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date nascimento;
     private String crmCro;
     private String tipo;
