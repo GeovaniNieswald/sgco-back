@@ -17,6 +17,7 @@ public class EnderecoDTO implements Serializable {
     private String numero;
     private String cep;
     private String complemento;
+    private Integer idCidade;
     private String cidade;
     private String estado;
     private String pais;
@@ -24,7 +25,7 @@ public class EnderecoDTO implements Serializable {
     public EnderecoDTO() {
     }
 
-    public EnderecoDTO(Integer id, String logradouro, String bairro, String numero, String cep, String complemento, String cidade, String estado, String pais) {
+    public EnderecoDTO(Integer id, String logradouro, String bairro, String numero, String cep, String complemento, Integer idCidade, String cidade, String estado, String pais) {
         this();
         this.id = id;
         this.logradouro = logradouro;
@@ -32,6 +33,7 @@ public class EnderecoDTO implements Serializable {
         this.numero = numero;
         this.cep = cep;
         this.complemento = complemento;
+        this.idCidade = idCidade;
         this.cidade = cidade;
         this.estado = estado;
         this.pais = pais;
@@ -45,6 +47,7 @@ public class EnderecoDTO implements Serializable {
         this.numero = endereco.getNumero();
         this.cep = endereco.getCep();
         this.complemento = endereco.getComplemento();
+        this.idCidade = endereco.getId();
         this.cidade = endereco.getCidade().getNome();
         this.estado = endereco.getCidade().getEstado().getNome() + " - " + endereco.getCidade().getEstado().getUf();
         this.pais = endereco.getCidade().getEstado().getPais().getNome() + " - " + endereco.getCidade().getEstado().getPais().getSigla();
@@ -96,6 +99,14 @@ public class EnderecoDTO implements Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public Integer getIdCidade() {
+        return idCidade;
+    }
+
+    public void setIdCidade(Integer idCidade) {
+        this.idCidade = idCidade;
     }
 
     public String getCidade() {
