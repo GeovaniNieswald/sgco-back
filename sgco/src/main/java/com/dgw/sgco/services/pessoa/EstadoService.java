@@ -39,4 +39,8 @@ public class EstadoService {
         return repo.findAll();
     }
 
+    public List<Estado> findByPais(Integer idPais) {
+        return repo.findEstados(idPais);
+    }
+
 }

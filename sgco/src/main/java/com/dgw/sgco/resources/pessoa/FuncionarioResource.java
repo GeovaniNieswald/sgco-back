@@ -11,9 +11,7 @@ import com.dgw.sgco.domain.pessoa.Funcionario;
 import com.dgw.sgco.dto.pessoa.FuncionarioDTO;
 import com.dgw.sgco.dto.pessoa.FuncionarioGetDTO;
 import com.dgw.sgco.resources.specifications.FuncionarioSpec;
-import com.dgw.sgco.services.pessoa.EstadoService;
 import com.dgw.sgco.services.pessoa.FuncionarioService;
-import com.dgw.sgco.services.pessoa.PaisService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -38,10 +36,6 @@ public class FuncionarioResource {
 
     @Autowired
     private FuncionarioService service;
-    @Autowired
-    private PaisService servicePais;
-    @Autowired
-    private EstadoService serviceEstado;
 
     /**
      * Inserir um novo Funcionario
@@ -136,27 +130,8 @@ public class FuncionarioResource {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.OPTIONS)
     public ResponseEntity<String> infos() {
-        JsonArray arrayPaises = new JsonArray();
-        JsonArray arrayEstados = new JsonArray();
         JsonArray arrayTiposFuncionarios = new JsonArray();
         JsonArray arrayPermissoes = new JsonArray();
-
-        servicePais.findAll().forEach(x -> {
-            JsonObject obj = new JsonObject();
-            obj.addProperty("id", x.getId());
-            obj.addProperty("nome", x.getNome());
-
-            arrayPaises.add(obj);
-        });
-
-        serviceEstado.findAll().forEach(x -> {
-            JsonObject obj = new JsonObject();
-            obj.addProperty("id", x.getId());
-            obj.addProperty("nome", x.getNome());
-            obj.addProperty("id_pais", x.getPais().getId());
-
-            arrayEstados.add(obj);
-        });
 
         for (TipoFuncionario tf : TipoFuncionario.values()) {
             JsonObject obj = new JsonObject();
@@ -177,8 +152,6 @@ public class FuncionarioResource {
         JsonObject obj = new JsonObject();
         obj.add("tipos", arrayTiposFuncionarios);
         obj.add("permissoes", arrayPermissoes);
-        obj.add("paises", arrayPaises);
-        obj.add("estados", arrayEstados);
 
         return ResponseEntity.ok().body(obj.toString());
     }

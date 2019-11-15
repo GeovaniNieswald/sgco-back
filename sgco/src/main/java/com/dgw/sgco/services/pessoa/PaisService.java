@@ -36,7 +36,7 @@ public class PaisService {
      * @return List<Pais>
      */
     public List<Pais> findAll() {
-        return repo.findAll();
+        return repo.findAllByOrderByNome();
     }
 
 }
