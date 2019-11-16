@@ -5,7 +5,6 @@ import java.text.ParseException;
 
 import javax.validation.Valid;
 
-import com.dgw.sgco.domain.enums.Permissao;
 import com.dgw.sgco.domain.enums.TipoFuncionario;
 import com.dgw.sgco.domain.pessoa.Funcionario;
 import com.dgw.sgco.dto.pessoa.FuncionarioDTO;
@@ -122,37 +121,20 @@ public class FuncionarioResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    /**
-     * Buscar informações para visualização/inserção/alteração de funcionários
-     * 
-     * @return ResponseEntity -> String
-     */
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(method = RequestMethod.OPTIONS)
-    public ResponseEntity<String> infos() {
-        JsonArray arrayTiposFuncionarios = new JsonArray();
-        JsonArray arrayPermissoes = new JsonArray();
+    @RequestMapping(value = "/tipos", method = RequestMethod.GET)
+    public ResponseEntity<String> findTiposFuncionarios() {
+        JsonArray arrayTipos = new JsonArray();
 
         for (TipoFuncionario tf : TipoFuncionario.values()) {
             JsonObject obj = new JsonObject();
             obj.addProperty("cod", tf.getCod());
-            obj.addProperty("nome", tf.getDescricao());
+            obj.addProperty("descricao", tf.getDescricao());
 
-            arrayTiposFuncionarios.add(obj);
+            arrayTipos.add(obj);
         }
 
-        for (Permissao p : Permissao.values()) {
-            JsonObject obj = new JsonObject();
-            obj.addProperty("cod", p.getCod());
-            obj.addProperty("nome", p.getDescricao());
-
-            arrayPermissoes.add(obj);
-        }
-
-        JsonObject obj = new JsonObject();
-        obj.add("tipos", arrayTiposFuncionarios);
-        obj.add("permissoes", arrayPermissoes);
-
-        return ResponseEntity.ok().body(obj.toString());
+        return ResponseEntity.ok().body(arrayTipos.toString());
     }
+
 }
