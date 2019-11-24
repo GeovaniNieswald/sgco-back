@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import com.dgw.sgco.domain.autenticacao.Usuario;
 import com.dgw.sgco.domain.enums.TipoFuncionario;
 import com.dgw.sgco.domain.pessoa.Funcionario;
+import com.dgw.sgco.dto.autenticacao.AlterarImagemDTO;
 import com.dgw.sgco.dto.autenticacao.AlterarSenhaDTO;
 import com.dgw.sgco.dto.autenticacao.UsuarioPerfilDTO;
 import com.dgw.sgco.dto.pessoa.ContatoDTO;
@@ -66,6 +67,18 @@ public class UsuarioService {
         }
 
         user.setSenha(pe.encode(objDto.getNova()));
+
+        repo.save(user);
+    }
+
+    public void alterarImagem(AlterarImagemDTO objDto) {
+        Usuario user = repo.findByLogin(objDto.getEmail());
+
+        if (user == null) {
+            throw new ObjectNotFoundException("Email não encontrado");
+        }
+
+        user.setImagem(objDto.getImagem());;
 
         repo.save(user);
     }

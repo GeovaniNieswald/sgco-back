@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.dgw.sgco.domain.autenticacao.Usuario;
 import com.dgw.sgco.domain.enums.Permissao;
+import com.dgw.sgco.dto.autenticacao.AlterarImagemDTO;
 import com.dgw.sgco.dto.autenticacao.AlterarSenhaDTO;
 import com.dgw.sgco.resources.responses.UploadFileResponse;
 import com.dgw.sgco.services.FileStorageService;
@@ -43,6 +44,12 @@ public class UsuarioResource {
     @RequestMapping(value = "/alterar_senha", method = RequestMethod.POST)
     public ResponseEntity<Void> alterarSenha(@RequestBody AlterarSenhaDTO objDto) {
         this.service.alterarSenha(objDto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/alterar_imagem", method = RequestMethod.POST)
+    public ResponseEntity<Void> alterarImagem(@RequestBody AlterarImagemDTO objDto) {
+        this.service.alterarImagem(objDto);
         return ResponseEntity.noContent().build();
     }
 
