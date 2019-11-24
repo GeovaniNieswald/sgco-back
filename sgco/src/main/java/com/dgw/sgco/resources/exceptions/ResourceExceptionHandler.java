@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.dgw.sgco.services.exceptions.AuthorizationException;
 import com.dgw.sgco.services.exceptions.DataIntegrityException;
 import com.dgw.sgco.services.exceptions.ObjectNotFoundException;
+import com.dgw.sgco.services.exceptions.PasswordException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,5 +94,12 @@ public class ResourceExceptionHandler {
         StandardError error = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    @ExceptionHandler(PasswordException.class)
+    public ResponseEntity<StandardError> password(PasswordException e, HttpServletRequest request) {
+        StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

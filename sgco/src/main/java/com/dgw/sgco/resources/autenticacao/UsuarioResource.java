@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.dgw.sgco.domain.autenticacao.Usuario;
 import com.dgw.sgco.domain.enums.Permissao;
+import com.dgw.sgco.dto.autenticacao.AlterarSenhaDTO;
 import com.dgw.sgco.resources.responses.UploadFileResponse;
 import com.dgw.sgco.services.FileStorageService;
 import com.dgw.sgco.services.autenticacao.UsuarioService;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +39,12 @@ public class UsuarioResource {
 
     @Autowired
     private FileStorageService fileStorageService;
+
+    @RequestMapping(value = "/alterar_senha", method = RequestMethod.POST)
+    public ResponseEntity<Void> alterarSenha(@RequestBody AlterarSenhaDTO objDto) {
+        this.service.alterarSenha(objDto);
+        return ResponseEntity.noContent().build();
+    }
 
     @RequestMapping(value = "/imagem/upload", method = RequestMethod.POST)
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
