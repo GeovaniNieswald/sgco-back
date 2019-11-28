@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         cors.setAllowedMethods(Arrays.asList("*"));
         cors.setAllowedHeaders(Arrays.asList("*"));
         cors.setAllowedOrigins(Arrays.asList("*"));
-        cors.setExposedHeaders(Arrays.asList("Cache-Control", "Content-Language", "Content-Type", "Expires", "Last-Modified", "Pragma", "Authorization"));
+        cors.setExposedHeaders(Arrays.asList("Cache-Control", "Content-Language", "Content-Type", "Expires", "Last-Modified", "Pragma", "Authorization", "Location"));
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cors);

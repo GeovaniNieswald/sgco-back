@@ -17,7 +17,6 @@ import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +42,6 @@ public class FuncionarioResource {
      * @return ResponseEntity com URI para o novo Funcionario inserido
      * @throws ParseException
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody FuncionarioDTO objDTO) throws ParseException {
         Funcionario obj = service.fromDTO(objDTO);
@@ -62,7 +60,6 @@ public class FuncionarioResource {
      * @return ResponseEntity
      * @throws ParseException
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody FuncionarioDTO objDTO, @PathVariable Integer id) throws ParseException {
         Funcionario obj = service.fromDTO(objDTO);
@@ -79,7 +76,6 @@ public class FuncionarioResource {
      * @param id - Integer
      * @return ResponseEntity
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> disable(@PathVariable Integer id) {
         service.disable(id);
@@ -93,7 +89,6 @@ public class FuncionarioResource {
      * @param id - Integer
      * @return ResponseEntity -> Funcionario
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Funcionario> find(@PathVariable Integer id) {
         Funcionario obj = service.find(id);
@@ -106,7 +101,6 @@ public class FuncionarioResource {
      * 
      * @return ResponseEntity -> List<Funcionario>
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<FuncionarioGetDTO>> findByFilter(
             FuncionarioSpec funcionarioSpec,
@@ -121,7 +115,6 @@ public class FuncionarioResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/tipos", method = RequestMethod.GET)
     public ResponseEntity<String> findTiposFuncionarios() {
         JsonArray arrayTipos = new JsonArray();

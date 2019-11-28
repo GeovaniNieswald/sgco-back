@@ -58,6 +58,8 @@ public class FuncionarioService {
      */
     @Transactional
     public Funcionario insert(Funcionario obj) {
+        this.checarPermissaoADM();
+        
         obj.setId(null);
 
         enderecoRepo.save(obj.getEndereco());
@@ -80,6 +82,8 @@ public class FuncionarioService {
      */
     @Transactional
     public Funcionario update(Funcionario obj) {
+        this.checarPermissaoADM();
+        
         Funcionario funcionarioBD = find(obj.getId());
 
         enderecoRepo.save(obj.getEndereco());
@@ -108,8 +112,17 @@ public class FuncionarioService {
      */
     @Transactional
     public void disable(Integer id) {
+        this.checarPermissaoADM();
+        
         Funcionario funcionario = find(id);
         funcionario.setAtivo(false);
+
+        Usuario usuario = funcionario.getUsuario();
+
+        if (usuario != null) {
+            usuario.setAtivo(false);
+            usuarioRepo.save(usuario);
+        }
 
         funcionarioRepo.save(funcionario);
     }
@@ -121,11 +134,7 @@ public class FuncionarioService {
      * @return Funcionario
      */
     public Funcionario find(Integer id) {
-        UserSS user = UserService.authenticated();
-
-        if (user == null || !user.hasRole(Permissao.ADMINISTRADOR) && !id.equals(user.getId())) {
-            throw new AuthorizationException("Acesso negado");
-        }
+        this.checarPermissaoADM();
 
         Optional<Funcionario> obj = funcionarioRepo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Funcionario.class.getName()));
@@ -151,6 +160,8 @@ public class FuncionarioService {
      * @return Page<Funcionario>
      */
     public Page<Funcionario> findPage(Integer page, Integer linesPerPage, String orderBy, String direction, FuncionarioSpec funcionarioSpec) {
+        this.checarPermissaoADM();
+        
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 
         return funcionarioRepo.findAll(funcionarioSpec, pageRequest);
@@ -193,5 +204,12 @@ public class FuncionarioService {
         funcionario.setEndereco(endereco);
 
         return funcionario;
+    }
+
+    private void checarPermissaoADM() {
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Permissao.ADMINISTRADOR)) {
+            throw new AuthorizationException("Acesso negado");
+        }
     }
 }
