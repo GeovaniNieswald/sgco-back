@@ -190,8 +190,8 @@ public class DBService {
         usuario2.setPermissoes(new HashSet<>(Arrays.asList(Permissao.ADMINISTRADOR)));
         usuario3.setPermissoes(new HashSet<>(Arrays.asList(Permissao.ADMINISTRADOR)));
 
-        Funcionario geovani = new Funcionario(null, "Geovani Alex Nieswald", "036.084.580-00", "9111083532", "M", sdfData.parse("1996-05-30"), true, TipoFuncionario.DENTISTA, "Red", "9999", contato1, rRocco, usuario1);
-        Funcionario giovanna = new Funcionario(null, "Giovanna Cristiane Ramos", "925.006.289-30", "418034771", "F", sdfData.parse("1994-04-24"), true, TipoFuncionario.SECRETARIA, "Pink", null, contato3, rRio, null);
+        Funcionario geovani = new Funcionario(null, "Geovani Alex Nieswald", "036.084.580-00", "9111083532", "M", sdfData.parse("1996-05-30"), true, TipoFuncionario.DENTISTA, "#000000", "9999", contato1, rRocco, usuario1);
+        Funcionario giovanna = new Funcionario(null, "Giovanna Cristiane Ramos", "925.006.289-30", "418034771", "F", sdfData.parse("1994-04-24"), true, TipoFuncionario.SECRETARIA, "#1C1C1C", null, contato3, rRio, null);
 
         Conta nuConta = new Conta(null, "nuConta", TipoConta.CONTA_CORRENTE, true);
         Conta cartaoNU = new Conta(null, "Cartão de Crédito NU", TipoConta.CARTAO, true);
