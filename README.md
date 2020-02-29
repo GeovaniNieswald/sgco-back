@@ -1,2 +1,2 @@
 # sgco-back
-Back-end Sistema de Gerenciamento de Clínica Odontológica
+Back-end Trabalho Projeto Integrador II - Sistema de Gerenciamento de Clínica Odontológica
